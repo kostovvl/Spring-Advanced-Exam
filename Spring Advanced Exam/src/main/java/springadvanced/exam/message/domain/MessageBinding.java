@@ -1,24 +1,20 @@
 package springadvanced.exam.message.domain;
 
-import springadvanced.exam.utils.baseClasses.BaseEntity;
+import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.validation.constraints.Email;
 
-@Entity
-@Table(name = "messages")
-public class Message extends BaseEntity {
+public class MessageBinding {
 
     private String senderName;
     private String senderEmail;
     private String subject;
     private String messageBody;
 
-    public Message() {
+    public MessageBinding() {
     }
 
-    @Column(name = "sender_name", nullable = false)
+    @Length(min = 2, message = "Sender name must be at least 2 characters long!")
     public String getSenderName() {
         return senderName;
     }
@@ -27,7 +23,8 @@ public class Message extends BaseEntity {
         this.senderName = senderName;
     }
 
-    @Column(name = "sender_emial", nullable = false, unique = true)
+    @Email(message = "Please enter valid Email!")
+    @Length(min = 1, message = "Email field can not be empty!")
     public String getSenderEmail() {
         return senderEmail;
     }
@@ -36,7 +33,7 @@ public class Message extends BaseEntity {
         this.senderEmail = senderEmail;
     }
 
-    @Column(name = "subject", nullable = false)
+    @Length(min = 3, message = "Message subject must be at least 3 characters long!")
     public String getSubject() {
         return subject;
     }
@@ -45,7 +42,7 @@ public class Message extends BaseEntity {
         this.subject = subject;
     }
 
-    @Column(name = "message_body", nullable = false, columnDefinition = "text")
+    @Length(min = 10, message = "Message body must be at least 10 characters long!")
     public String getMessageBody() {
         return messageBody;
     }

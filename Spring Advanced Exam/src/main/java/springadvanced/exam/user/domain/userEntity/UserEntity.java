@@ -1,7 +1,8 @@
-package springadvanced.exam.user.domain;
+package springadvanced.exam.user.domain.userEntity;
 
 import springadvanced.exam.cart.domain.Cart;
-import springadvanced.exam.utils.BaseEntity;
+import springadvanced.exam.user.domain.userRole.UserRole;
+import springadvanced.exam.utils.baseClasses.BaseEntity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +14,7 @@ public class UserEntity extends BaseEntity {
     private String username;
     private String password;
     private String email;
+    private Double personalDiscount;
     private List<UserRole> roles;
     private Cart cart;
 
@@ -44,6 +46,15 @@ public class UserEntity extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Column(name = "personal_discount")
+    public Double getPersonalDiscount() {
+        return personalDiscount;
+    }
+
+    public void setPersonalDiscount(Double personalDiscount) {
+        this.personalDiscount = personalDiscount;
     }
 
     @OneToMany(mappedBy = "user", targetEntity = UserRole.class,

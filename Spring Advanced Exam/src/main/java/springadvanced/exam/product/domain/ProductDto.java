@@ -1,16 +1,12 @@
 package springadvanced.exam.product.domain;
 
 import springadvanced.exam.category.domain.Category;
-import springadvanced.exam.utils.baseClasses.BaseEntity;
+import springadvanced.exam.utils.baseClasses.BaseDto;
 
-import javax.persistence.*;
-import javax.validation.constraints.DecimalMin;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "products")
-public class Product extends BaseEntity {
+public class ProductDto extends BaseDto {
 
     private String title;
     private String description;
@@ -23,10 +19,9 @@ public class Product extends BaseEntity {
     private Double AdminDiscount;
     private int numberOfPurchases;
 
-    public Product() {
+    public ProductDto() {
     }
 
-    @Column(name = "title", nullable = false, unique = true)
     public String getTitle() {
         return title;
     }
@@ -35,7 +30,6 @@ public class Product extends BaseEntity {
         this.title = title;
     }
 
-    @Column(name = "description", nullable = false, columnDefinition = "text")
     public String getDescription() {
         return description;
     }
@@ -44,8 +38,6 @@ public class Product extends BaseEntity {
         this.description = description;
     }
 
-    @ManyToOne()
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
     public Category getCategory() {
         return category;
     }
@@ -54,7 +46,6 @@ public class Product extends BaseEntity {
         this.category = category;
     }
 
-    @Column(name = "added_on")
     public LocalDateTime getAddedOn() {
         return addedOn;
     }
@@ -63,7 +54,6 @@ public class Product extends BaseEntity {
         this.addedOn = addedOn;
     }
 
-    @Column(name = "last_upadated")
     public LocalDateTime getLastUpdated() {
         return LastUpdated;
     }
@@ -72,7 +62,6 @@ public class Product extends BaseEntity {
         LastUpdated = lastUpdated;
     }
 
-    @Column(name = "picture_Url")
     public String getPictureUrl() {
         return pictureUrl;
     }
@@ -81,8 +70,6 @@ public class Product extends BaseEntity {
         this.pictureUrl = pictureUrl;
     }
 
-    @Column(name = "price")
-    @DecimalMin(value = "0")
     public BigDecimal getPrice() {
         return price;
     }
@@ -91,17 +78,14 @@ public class Product extends BaseEntity {
         this.price = price;
     }
 
-    @Column(name = "max_discount_percent")
-    public double getMaxDiscountPercent() {
+    public Double getMaxDiscountPercent() {
         return maxDiscountPercent;
     }
 
-    public void setMaxDiscountPercent(double maxDiscountPercent) {
+    public void setMaxDiscountPercent(Double maxDiscountPercent) {
         this.maxDiscountPercent = maxDiscountPercent;
     }
 
-
-    @Column(name = "admin_discount")
     public Double getAdminDiscount() {
         return AdminDiscount;
     }
@@ -110,7 +94,6 @@ public class Product extends BaseEntity {
         AdminDiscount = adminDiscount;
     }
 
-    @Column(name = "number_of_purchases")
     public int getNumberOfPurchases() {
         return numberOfPurchases;
     }

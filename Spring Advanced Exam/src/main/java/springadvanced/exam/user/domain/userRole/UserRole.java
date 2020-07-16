@@ -1,6 +1,7 @@
-package springadvanced.exam.user.domain;
+package springadvanced.exam.user.domain.userRole;
 
-import springadvanced.exam.utils.BaseEntity;
+import springadvanced.exam.user.domain.userEntity.UserEntity;
+import springadvanced.exam.utils.baseClasses.BaseEntity;
 
 import javax.persistence.*;
 

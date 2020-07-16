@@ -1,8 +1,8 @@
 package springadvanced.exam.cart.domain;
 
 import springadvanced.exam.product.domain.Product;
-import springadvanced.exam.user.domain.UserEntity;
-import springadvanced.exam.utils.BaseEntity;
+import springadvanced.exam.user.domain.userEntity.UserEntity;
+import springadvanced.exam.utils.baseClasses.BaseEntity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

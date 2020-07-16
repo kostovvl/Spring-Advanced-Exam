@@ -1,7 +1,7 @@
 package springadvanced.exam.category.domain;
 
 import springadvanced.exam.product.domain.Product;
-import springadvanced.exam.utils.BaseEntity;
+import springadvanced.exam.utils.baseClasses.BaseEntity;
 
 import javax.persistence.*;
 import java.util.List;

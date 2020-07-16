@@ -1,24 +1,17 @@
 package springadvanced.exam.message.domain;
 
-import springadvanced.exam.utils.baseClasses.BaseEntity;
+import springadvanced.exam.utils.baseClasses.BaseDto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "messages")
-public class Message extends BaseEntity {
+public class MessageDto extends BaseDto {
 
     private String senderName;
     private String senderEmail;
     private String subject;
     private String messageBody;
 
-    public Message() {
+    public MessageDto() {
     }
 
-    @Column(name = "sender_name", nullable = false)
     public String getSenderName() {
         return senderName;
     }
@@ -27,7 +20,6 @@ public class Message extends BaseEntity {
         this.senderName = senderName;
     }
 
-    @Column(name = "sender_emial", nullable = false, unique = true)
     public String getSenderEmail() {
         return senderEmail;
     }
@@ -36,7 +28,6 @@ public class Message extends BaseEntity {
         this.senderEmail = senderEmail;
     }
 
-    @Column(name = "subject", nullable = false)
     public String getSubject() {
         return subject;
     }
@@ -45,7 +36,6 @@ public class Message extends BaseEntity {
         this.subject = subject;
     }
 
-    @Column(name = "message_body", nullable = false, columnDefinition = "text")
     public String getMessageBody() {
         return messageBody;
     }
