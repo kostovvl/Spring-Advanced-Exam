@@ -13,6 +13,7 @@ public class UserEntityDto extends BaseDto {
     private Double personalDiscount;
     private List<UserRoleDto> roles;
     private CartDto cart;
+    private int totalPurchases;
 
     public UserEntityDto() {
     }
@@ -63,5 +64,13 @@ public class UserEntityDto extends BaseDto {
 
     public void setCart(CartDto cart) {
         this.cart = cart;
+    }
+
+    public int getTotalPurchases() {
+        return totalPurchases;
+    }
+
+    public void setTotalPurchases(int totalPurchases) {
+        this.totalPurchases = totalPurchases;
     }
 }

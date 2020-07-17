@@ -8,6 +8,7 @@ public class UserEntityBinding {
 
     private String username;
     private String password;
+    private String confirmPassword;
     private String email;
 
     public UserEntityBinding() {
@@ -22,13 +23,22 @@ public class UserEntityBinding {
         this.username = username;
     }
 
-    @Length(min = 3, message = "Username should not be at least 3 characters long!")
+    @Length(min = 3, message = "Password should not be at least 3 characters long!")
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Length(min = 3, message = "Password should not be at least 3 characters long!")
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     @Email(message = "Please enter valid Email!")
@@ -40,4 +50,5 @@ public class UserEntityBinding {
     public void setEmail(String email) {
         this.email = email;
     }
+
 }

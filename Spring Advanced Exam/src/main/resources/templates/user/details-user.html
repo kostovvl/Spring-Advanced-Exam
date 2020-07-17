@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:include="fragments/header" ></th:block>
+</head>
+<body>
+<header>
+    <th:block th:include="fragments/nav" ></th:block>
+</header>
+<main>
+    <h1  class="text-center mt-2"><span class="badge badge-pill badge-dark">Details</span></h1>
+    <hr class="my-3"/>
+    <div class="container-fluid bg-dark w-25 m-auto ">
+        <div class="row justify-content-center ">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body bg-gray align-content-center text-center">
+                    <h6>Username</h6>
+                    <h6>Password</h6>
+                    <h6>Email</h6>
+                    <h6>Total Purchases</h6>
+                    <a class="btn btn-danger">Update</a>
+<!--                 <a class="btn btn-danger" th:href="@{/users/delete(id = ${principal.username})}">Delete</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="footer bg-dark  py-2">
+    <th:block th:include="fragments/footer" ></th:block>
+</footer>
+</body>
+</html>

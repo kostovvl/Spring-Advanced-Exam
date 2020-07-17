@@ -19,7 +19,10 @@
             </div>
             <input th:field = "*{username}" th:errorclass = "bg-danger"  type="text"
                    class="form-control" id="username" name="username"/>
-            <small class="text-danger" th:if="${#fields.hasErrors('username')}">Incorrect username!</small>
+            <small class="text-danger" th:each="e : ${#fields.errors('username')}"
+            th:text="${e}">Error Message Here!</small>
+            <small class="text-danger" th:if="${userExists}">User with such username
+            already exists!</small>
         </div>
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
@@ -27,31 +30,30 @@
             </div>
             <input th:field = "*{email}" th:errorclass = "bg-danger"
                    type="email" class="form-control" id="email" name="email"/>
-            <small class="text-danger"th:if="${#fields.hasErrors('email')}">Incorrect email!</small>
+            <small class="text-danger" th:each="e : ${#fields.errors('email')}"
+                   th:text="${e}">Error Message Here!</small>
+            <small class="text-danger" th:if="${emailExists}">User with such Email
+                already exists!</small>
         </div>
-        <div class="form-group">
-            <div class="label-holder text-white textCol d-flex justify-content-center">
-                <label for="budget" class="h4 mb-2">User budget</label>
-            </div>
-            <input th:field = "*{budget}" th:errorclass = "bg-danger"
-                   type="number"  class="form-control" id="budget" name="budget" />
-			<small class="text-danger" th:if="${#fields.hasErrors('budget')}" >Incorrect budget!</small>
 
-        </div>
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="password" class="h4 mb-2">Password</label>
             </div>
             <input th:errorclass = "bg-danger"
                    type="password" class="form-control" id="password" name="password" />
-            <small class="text-danger" th:if="${#fields.hasErrors('password')}">Incorrect pasword!</small>
+            <small class="text-danger" th:each="e : ${#fields.errors('password')}"
+                   th:text="${e}">Error Message Here!</small>
         </div>
         <div class="form-group">
             <div class="label-holder text-white textCol d-flex justify-content-center">
                 <label for="confirmPassword" class="h4 mb-2">Confirm Password</label>
             </div>
-            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"/>
-            <small class="text-danger" th:if="${confirmPassword}">Incorrect pasword!</small>
+            <input th:errorclass = "bg-danger"
+                   type="password" class="form-control" id="confirmPassword" name="confirmPassword"/>
+            <small class="text-danger" th:each="e : ${#fields.errors('confirmPassword')}"
+                   th:text="${e}">Error Message Here!</small>
+            <small class="text-danger" th:if="${confirmPassword}">Passwords don't match!</small>
         </div>
         <div class="button-holder d-flex justify-content-center">
             <button type="submit" class="btn btn-secondary text-white mb-3" value="Register"\>Register</button>

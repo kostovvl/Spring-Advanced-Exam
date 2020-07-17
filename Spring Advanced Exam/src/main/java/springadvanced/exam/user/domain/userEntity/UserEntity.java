@@ -17,6 +17,7 @@ public class UserEntity extends BaseEntity {
     private Double personalDiscount;
     private List<UserRole> roles;
     private Cart cart;
+    private int totalPurchases;
 
     public UserEntity() {
     }
@@ -75,5 +76,14 @@ public class UserEntity extends BaseEntity {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    @Column(name = "total_purchases")
+    public int getTotalPurchases() {
+        return totalPurchases;
+    }
+
+    public void setTotalPurchases(int totalPurchases) {
+        this.totalPurchases = totalPurchases;
     }
 }

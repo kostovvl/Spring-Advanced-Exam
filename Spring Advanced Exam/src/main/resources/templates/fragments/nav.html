@@ -1,31 +1,56 @@
-<th:block>
+<th:block xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
     <nav class="navbar bg-dark navbar-expand-lg navbar-background bg-dark ">
         <a class="nav-link text-white active h5" href="/">Andrey's</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <th:block th:if="${session.isEmpty()}">
+        <th:block th:unless="${#httpServletRequest.userPrincipal}">
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
                 <ul class="navbar-nav row">
 
-                    <li class="nav-item col-md-4">
-                        <a class="nav-link text-white active h6" href="/users/login">Login</a>
+                    <li class="nav-item col-md-6">
+                        <form th:action="@{/users/login}" th:method="get">
+                            <div class="button-holder d-flex justify-content-center">
+                                <button type="submit" class="btn btn-warning  mb-3">Login</button>
+                            </div>
+                        </form>
                     </li>
                     <li class="nav-item col-md-4">
-                        <a class="nav-link text-white active h6" href="/users/register" >Register</a>
+                        <form th:action="@{/users/register}" th:method="get">
+                            <div class="button-holder d-flex justify-content-center">
+                                <button type="submit" class="btn btn-warning  mb-3">Register</button>
+                            </div>
+                        </form>
                     </li>
                 </ul>
             </div>
         </th:block>
-        <th:block th:unless="${session.isEmpty()}">
+        <th:block th:if="${#httpServletRequest.userPrincipal}">
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
                 <ul class="navbar-nav row">
+<!--                    Тук трябва да вкарам админските бутони-->
                     <li class="col-md-4">
-                        <a class="nav-link text-white active h6" href="/items/add">Add Item</a>
+                        <form th:action="@{/users/details}" th:method="get">
+                            <div class="button-holder d-flex justify-content-center">
+                                <button type="submit" class="btn btn-warning  mb-3">Profile</button>
+                            </div>
+                        </form>
                     </li>
                     <li class="col-md-4">
-                        <a class="nav-link text-white active h6" href="/users/logout">Logout</a>
+                        <form th:action="@{/home}" th:method="get">
+                            <div class="button-holder d-flex justify-content-center">
+                                <button type="submit" class="btn btn-warning  mb-3">Cart</button>
+                            </div>
+                        </form>
+                    </li>
+                    <li class="col-md-4">
+                        <form th:action="@{/users/logout}" th:method="post">
+                            <div class="button-holder d-flex justify-content-center">
+                                <button type="submit" class="btn btn-warning  mb-3">Logout</button>
+                            </div>
+                        </form>
                     </li>
                 </ul>
             </div>
