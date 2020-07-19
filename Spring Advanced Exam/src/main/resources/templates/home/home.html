@@ -8,22 +8,33 @@
     <th:block th:include="fragments/nav" ></th:block>
 </header>
 <main>
-    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Items</span></h1>
-    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark" th:text="|Total count of items: ${items.size()}|" ></span></h1>
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Products</span></h1>
+<!--    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark" th:text="|Total count of items: ${items.size()}|" ></span></h1>-->
     <hr class="hr-3"/>
     <div class="container-fluid">
         <div class="offers row mx-auto d-flex flex-row justify-content-center">
-            <div th:each="i : ${items}" th:object="${i}" class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
+            <div th:each="i : ${products}" th:object="${i}" class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
                 <a th:href="@{/items/details(id = *{id})}">
                     <div class="card-img-top-wrapper">
-                        <img class="card-img-top" th:src="*{image}" alt="image">
+                        <img class="card-img-top" th:src="*{pictureUrl}" alt="image">
                     </div>
                     <div class="card-body pb-1">
-                        <h5 class="card-title text-center" th:text="*{name}">Item name</h5>
+                        <h5 class="card-title text-center" th:text="*{title}">Item name</h5>
                     </div>
                     <ul class="offer-details list-group list-group-flush">
                         <li class="list-group-item">
                             <div class="card-text text-center" th:src="*{price}"><span>Item price</span></div>
+                        </li>
+                    </ul>
+                    <ul class="offer-details list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="card-text text-center" th:src="*{totalDiscount}"><span>Item price</span></div>
+                        </li>
+                    </ul>
+                    <ul class="offer-details list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="card-text text-center" th:src="*{discountedPrice}">
+                                <span>Item price</span></div>
                         </li>
                     </ul>
                 </a>
