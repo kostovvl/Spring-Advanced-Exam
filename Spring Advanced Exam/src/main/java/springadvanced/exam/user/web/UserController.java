@@ -157,7 +157,7 @@ public class UserController {
         this.userEntityService.updateUser(userEntityUpdateBinding);
         session.invalidate();
 
-        return "redirect:/users/login";
+        return "redirect:/users/login?updated=new_credentials";
     }
 
     @GetMapping("/delete")

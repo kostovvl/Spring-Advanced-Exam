@@ -1,12 +1,13 @@
 <th:block xmlns:th="http://www.thymeleaf.org"
           xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
     <nav class="navbar bg-dark navbar-expand-lg navbar-background bg-dark ">
-        <a class="nav-link text-white active h5" href="/">Andrey's</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+
         <th:block th:unless="${#httpServletRequest.userPrincipal}">
+            <a class="nav-link text-white active h5" href="/">Andrey's</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
                 <ul class="navbar-nav row">
 
@@ -28,6 +29,11 @@
             </div>
         </th:block>
         <th:block th:if="${#httpServletRequest.userPrincipal}">
+            <a class="nav-link text-white active h5" href="/home">Andrey's</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
                 <ul class="navbar-nav row">
 <!--                    Тук трябва да вкарам админските бутони-->
