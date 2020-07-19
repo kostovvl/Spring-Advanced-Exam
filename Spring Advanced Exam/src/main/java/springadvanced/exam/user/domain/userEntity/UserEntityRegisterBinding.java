@@ -4,14 +4,14 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 
-public class UserEntityBinding {
+public class UserEntityRegisterBinding {
 
     private String username;
     private String password;
     private String confirmPassword;
     private String email;
 
-    public UserEntityBinding() {
+    public UserEntityRegisterBinding() {
     }
 
     @Length(min = 3, message = "Username should not be at least 3 characters long!")

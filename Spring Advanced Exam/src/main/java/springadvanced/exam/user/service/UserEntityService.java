@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import springadvanced.exam.cart.domain.Cart;
 import springadvanced.exam.user.domain.userEntity.UserEntity;
 import springadvanced.exam.user.domain.userEntity.UserEntityDto;
+import springadvanced.exam.user.domain.userEntity.UserEntityUpdateBinding;
 import springadvanced.exam.user.domain.userRole.UserRole;
 import springadvanced.exam.user.repository.UserEntityRepository;
 
@@ -31,7 +32,7 @@ public class UserEntityService {
     }
 
     public boolean emailExists(String email) {
-        return  this.userEntityRepository.findByEmail(email).isPresent();
+        return this.userEntityRepository.findByEmail(email).isPresent();
     }
 
     public void registerUser(UserEntityDto userEntityDto) {
@@ -49,5 +50,32 @@ public class UserEntityService {
         userEntity.setPassword(this.passwordEncoder.encode(userEntity.getPassword()));
         userEntity.setTotalPurchases(0);
         this.userEntityRepository.saveAndFlush(userEntity);
+    }
+
+    public UserEntityDto findByUsername(String username) {
+        return this.userEntityRepository.findByUsername(username)
+                .map(u -> this.mapper.map(u, UserEntityDto.class))
+                .orElse(null);
+    }
+
+    public String getUserOldPassword(String username) {
+
+        return findByUsername(username).getPassword();
+    }
+
+    public void updateUser(UserEntityUpdateBinding userEntityUpdateBinding) {
+        UserEntity updatedUserEntity = this.userEntityRepository.getOne(userEntityUpdateBinding.getId());
+
+        updatedUserEntity.setUsername(userEntityUpdateBinding.getUsername());
+        updatedUserEntity.setPassword(userEntityUpdateBinding.getNewPassword());
+        updatedUserEntity.setEmail(userEntityUpdateBinding.getEmail());
+        updatedUserEntity.setPassword(this.passwordEncoder.encode(userEntityUpdateBinding.getNewPassword()));
+        this.userEntityRepository.save(updatedUserEntity);
+    }
+
+    public void deleteUser(String id) {
+
+        this.userEntityRepository.deleteById(id);
+
     }
 }

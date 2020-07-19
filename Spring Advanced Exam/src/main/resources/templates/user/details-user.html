@@ -14,13 +14,17 @@
     <div class="container-fluid bg-dark w-25 m-auto ">
         <div class="row justify-content-center ">
             <div class="card" style="width: 18rem;">
-                <div class="card-body bg-gray align-content-center text-center">
-                    <h6>Username</h6>
-                    <h6>Password</h6>
-                    <h6>Email</h6>
-                    <h6>Total Purchases</h6>
-                    <a class="btn btn-danger">Update</a>
-<!--                 <a class="btn btn-danger" th:href="@{/users/delete(id = ${principal.username})}">Delete</a>-->
+                <div th:object="${user}"  class="card-body bg-gray align-content-center text-center">
+                    <h4>Username:</h4>
+                    <h5 th:text="${user.username}"></h5>
+                    <h4>Email:</h4>
+                    <h5 th:text="${user.email}"></h5>
+                    <h4>Total Purchases:</h4>
+                    <h5 th:text="${user.totalPurchases}"></h5>
+                    <h4>Total Personal Discount:</h4>
+                    <h5 th:text="${user.personalDiscount}"></h5>
+                    <a class="btn btn-danger" th:href="@{/users/update}">Update</a>
+                 <a class="btn btn-danger" th:href="@{/users/delete(id = *{id})}">Delete</a>
                 </div>
             </div>
         </div>

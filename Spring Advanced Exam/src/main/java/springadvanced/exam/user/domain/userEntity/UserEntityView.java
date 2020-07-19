@@ -1,11 +1,12 @@
 package springadvanced.exam.user.domain.userEntity;
+
 import springadvanced.exam.cart.domain.CartDto;
 import springadvanced.exam.user.domain.userRole.UserRoleDto;
-import springadvanced.exam.utils.baseClasses.BaseDto;
 
 import java.util.List;
 
-public class UserEntityDto extends BaseDto {
+public class UserEntityView {
+
 
     private String id;
     private String username;
@@ -16,15 +17,13 @@ public class UserEntityDto extends BaseDto {
     private CartDto cart;
     private int totalPurchases;
 
-    public UserEntityDto() {
+    public UserEntityView() {
     }
 
-    @Override
     public String getId() {
         return id;
     }
 
-    @Override
     public void setId(String id) {
         this.id = id;
     }

@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 and().
                 formLogin().loginPage("/login").loginProcessingUrl("/users/login/authenticate").permitAll().
                 defaultSuccessUrl("/home").
-                failureForwardUrl("/users/login?error=bad_credentials"). //<- Трябва да има @PostMapping за този URL, това е POST метод...
+                failureForwardUrl("/users/login?error=bad_credentials").
                 and().
                 logout().
                 logoutUrl("/users/logout").
