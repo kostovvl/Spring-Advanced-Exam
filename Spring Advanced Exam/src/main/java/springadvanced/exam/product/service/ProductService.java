@@ -2,6 +2,7 @@ package springadvanced.exam.product.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import springadvanced.exam.product.domain.ProductDto;
 import springadvanced.exam.product.domain.ProductUserView;
 import springadvanced.exam.product.repository.ProductRepository;
 import springadvanced.exam.user.domain.userEntity.UserEntityDto;
@@ -43,5 +44,11 @@ public class ProductService {
                    return productUserView;
                 }).collect(Collectors.toList());
 
+    }
+
+    public List<ProductDto> findAllProductsAdmin() {
+        return this.productRepository.findAll().stream()
+                .map(p -> this.mapper.map(p, ProductDto.class))
+                .collect(Collectors.toList());
     }
 }

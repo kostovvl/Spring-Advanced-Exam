@@ -36,15 +36,23 @@
             </button>
             <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
                 <ul class="navbar-nav row">
+
+                        <li sec:authorize="hasRole('ADMIN')" class="col-md-2">
+                            <form th:action="@{/admin}" th:method="get">
+                                <div class="button-holder d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-warning  mb-3">Admin</button>
+                                </div>
+                            </form>
+                        </li>
 <!--                    Тук трябва да вкарам админските бутони-->
-                    <li class="col-md-4">
+                    <li class="col-md-4" >
                         <form th:action="@{/users/details}" th:method="get">
                             <div class="button-holder d-flex justify-content-center">
                                 <button type="submit" class="btn btn-warning  mb-3">Profile</button>
                             </div>
                         </form>
                     </li>
-                    <li class="col-md-4">
+                    <li class="col-md-2" >
                         <form th:action="@{/home}" th:method="get">
                             <div class="button-holder d-flex justify-content-center">
                                 <button type="submit" class="btn btn-warning  mb-3">Cart</button>

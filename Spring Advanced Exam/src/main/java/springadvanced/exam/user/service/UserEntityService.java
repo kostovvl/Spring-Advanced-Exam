@@ -12,6 +12,7 @@ import springadvanced.exam.user.repository.UserEntityRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserEntityService {
@@ -77,5 +78,11 @@ public class UserEntityService {
 
         this.userEntityRepository.deleteById(id);
 
+    }
+
+    public List<UserEntityDto> getAllUsers() {
+        return this.userEntityRepository.findAll().stream()
+                .map(u -> this.mapper.map(u, UserEntityDto.class))
+                .collect(Collectors.toList());
     }
 }

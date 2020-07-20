@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
 
 <head>
     <th:block th:include="fragments/header" ></th:block>
@@ -23,8 +24,10 @@
                     <h5 th:text="${user.totalPurchases}"></h5>
                     <h4>Total Personal Discount:</h4>
                     <h5 th:text="${user.personalDiscount}"></h5>
+                    <div sec:authorize ="hasRole('USER')">
                     <a class="btn btn-danger" th:href="@{/users/update}">Update</a>
-                 <a class="btn btn-danger" th:href="@{/users/delete(id = *{id})}">Delete</a>
+                    <a class="btn btn-danger" th:href="@{/users/delete(id = *{id})}">Delete</a>
+                </div>
                 </div>
             </div>
         </div>
