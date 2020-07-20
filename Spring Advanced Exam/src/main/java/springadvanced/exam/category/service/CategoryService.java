@@ -2,6 +2,7 @@ package springadvanced.exam.category.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import springadvanced.exam.category.domain.Category;
 import springadvanced.exam.category.domain.CategoryDto;
 import springadvanced.exam.category.repository.CategoryRepository;
 
@@ -23,5 +24,13 @@ public class CategoryService  {
         return this.categoryRepository.findAll().stream()
                 .map(c -> this.mapper.map(c, CategoryDto.class))
                 .collect(Collectors.toList());
+    }
+
+    public boolean categoryExists(String name) {
+        return this.categoryRepository.findByName(name).isPresent();
+    }
+
+    public void addCategory(CategoryDto categoryDto) {
+        this.categoryRepository.saveAndFlush(this.mapper.map(categoryDto, Category.class));
     }
 }

@@ -2,7 +2,7 @@ package springadvanced.exam.product.domain;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
-import springadvanced.exam.category.domain.CategoryBinding;
+import springadvanced.exam.category.domain.CategoryAddBinding;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Max;
@@ -15,7 +15,7 @@ public class ProductAddBinding {
 
     private String title;
     private String description;
-    private CategoryBinding category;
+    private CategoryAddBinding category;
     private String pictureUrl;
     private BigDecimal price;
     private Double maxDiscountPercent;
@@ -42,11 +42,11 @@ public class ProductAddBinding {
     }
 
     @NotNull
-    public CategoryBinding getCategory() {
+    public CategoryAddBinding getCategory() {
         return category;
     }
 
-    public void setCategory(CategoryBinding category) {
+    public void setCategory(CategoryAddBinding category) {
         this.category = category;
     }
 
@@ -75,7 +75,7 @@ public class ProductAddBinding {
         return maxDiscountPercent;
     }
 
-    public void setMaxDiscountPercent(double maxDiscountPercent) {
+    public void setMaxDiscountPercent(Double maxDiscountPercent) {
         this.maxDiscountPercent = maxDiscountPercent;
     }
 }
