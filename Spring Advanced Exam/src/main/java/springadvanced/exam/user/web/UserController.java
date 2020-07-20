@@ -104,6 +104,8 @@ public class UserController {
         //todo make it secure
 
 
+        
+
         UserEntityUpdateBinding userEntityUpdateBinding = this.mapper.map(
                 this.userEntityService.findByUsername(principal.getName()), UserEntityUpdateBinding.class);
 

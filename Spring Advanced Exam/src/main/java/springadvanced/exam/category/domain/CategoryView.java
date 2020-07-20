@@ -1,9 +1,5 @@
 package springadvanced.exam.category.domain;
 
-import springadvanced.exam.product.domain.Product;
-
-import java.util.List;
-
 public class CategoryView {
 
     private String id;

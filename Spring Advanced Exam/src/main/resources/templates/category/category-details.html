@@ -19,6 +19,7 @@
                     <p class="card-text" th:text="*{description}" >Description </p>
                     <h6 th:text="*{numberOfProducts}" >Item name</h6>
                     <a class="btn btn-danger" th:href="@{/categories/delete(id = *{id})}">Delete</a>
+                    <a class="btn btn-danger" th:href="@{/categories/update(id = *{id})}">Update</a>
                 </div>
             </div>
         </div>

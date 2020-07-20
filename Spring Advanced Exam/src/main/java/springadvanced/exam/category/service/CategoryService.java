@@ -35,15 +35,25 @@ public class CategoryService  {
         this.categoryRepository.saveAndFlush(this.mapper.map(categoryDto, Category.class));
     }
 
-    public CategoryView findById(String id) {
-        Category category = this.categoryRepository.findById(id).orElse(null);
-        CategoryView categoryView = this.mapper.map(category, CategoryView.class);
-        categoryView.setNumberOfProducts(category.getProducts().size());
-
-        return categoryView;
+    public CategoryDto findById(String id) {
+        return this.categoryRepository.findById(id)
+                .map(c -> this.mapper.map(c, CategoryDto.class)).orElse(null);
     }
 
     public void deleteById(String id) {
         this.categoryRepository.deleteById(id);
     }
+
+    public void updateCategory(CategoryDto updatedCategoryDto) {
+
+        Category existingCategory = this.categoryRepository.getOne(updatedCategoryDto.getId());
+
+        existingCategory.setName(updatedCategoryDto.getName());
+        existingCategory.setDescription(updatedCategoryDto.getDescription());
+
+        System.out.println();
+
+        this.categoryRepository.save(existingCategory);
+
+        }
 }
