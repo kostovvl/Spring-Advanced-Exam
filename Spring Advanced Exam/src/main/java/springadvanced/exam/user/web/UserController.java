@@ -104,14 +104,12 @@ public class UserController {
         //todo make it secure
 
 
-        
+        if (model.getAttribute("updateUser") == null) {
 
         UserEntityUpdateBinding userEntityUpdateBinding = this.mapper.map(
                 this.userEntityService.findByUsername(principal.getName()), UserEntityUpdateBinding.class);
-
-
-
         model.addAttribute("updateUser", userEntityUpdateBinding);
+        }
 
         return "user/update-user";
     }
