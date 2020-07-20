@@ -22,6 +22,16 @@
             <small class="text-danger" th:if=" ${categoryExists}" >Such category already exists!</small>
         </div>
 
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="name" class="h4 mb-2">Description</label>
+            </div>
+            <textarea th:field = "*{description}" th:errorclass = "bg-danger" type="text"
+                      class="form-control" id="description" name="description" ></textarea>
+            <small class="text-danger" th:each="e : ${#fields.errors('description')}" th:text="${e}">Incorrect name!</small>
+
+        </div>
+
         <div class="button-holder d-flex justify-content-center">
             <button type="submit" class="btn btn-secondary text-white mb-3">Add Category</button>
         </div>

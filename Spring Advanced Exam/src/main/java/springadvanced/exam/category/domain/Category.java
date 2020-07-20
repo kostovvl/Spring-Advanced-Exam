@@ -11,6 +11,7 @@ import java.util.List;
 public class Category extends BaseEntity {
 
     private String name;
+    private String description;
     private List<Product> products;
 
     public Category() {
@@ -23,6 +24,15 @@ public class Category extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Column(name = "description", nullable = false, columnDefinition = "text")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @OneToMany(mappedBy = "category", targetEntity = Product.class,
