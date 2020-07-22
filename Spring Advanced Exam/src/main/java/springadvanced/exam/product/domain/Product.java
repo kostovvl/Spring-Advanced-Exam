@@ -19,8 +19,8 @@ public class Product extends BaseEntity {
     private LocalDateTime LastUpdated;
     private String pictureUrl;
     private BigDecimal price;
-    private Double maxDiscountPercent;
-    private Double AdminDiscount;
+    private Integer maxDiscountPercent;
+    private Integer AdminDiscount;
     private int numberOfPurchases;
 
     public Product() {
@@ -92,21 +92,21 @@ public class Product extends BaseEntity {
     }
 
     @Column(name = "max_discount_percent")
-    public double getMaxDiscountPercent() {
+    public Integer getMaxDiscountPercent() {
         return maxDiscountPercent;
     }
 
-    public void setMaxDiscountPercent(double maxDiscountPercent) {
+    public void setMaxDiscountPercent(Integer maxDiscountPercent) {
         this.maxDiscountPercent = maxDiscountPercent;
     }
 
 
     @Column(name = "admin_discount")
-    public Double getAdminDiscount() {
+    public Integer getAdminDiscount() {
         return AdminDiscount;
     }
 
-    public void setAdminDiscount(Double adminDiscount) {
+    public void setAdminDiscount(Integer adminDiscount) {
         AdminDiscount = adminDiscount;
     }
 

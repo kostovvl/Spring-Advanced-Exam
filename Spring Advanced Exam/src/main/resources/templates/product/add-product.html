@@ -9,49 +9,73 @@
     <th:block th:include="fragments/nav" ></th:block>
 </header>
 <main>
-    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Item</span></h1>
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add Product</span></h1>
     <hr class="hr-3"/>
-    <form th:object="${itemAdd}" class="mx-auto w-25 bg-dark p-3 rounded text-center" th:action="@{/items/add}" th:method="post">
+    <form th:object="${productAdd}" class="mx-auto w-25 bg-dark p-3 rounded text-center"
+          th:action="@{/products/add}" th:method="post">
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="name" class="h4 mb-2">Name</label>
             </div>
-            <input th:field = "*{name}" th:errorclass = "bg-danger" type="text" class="form-control" id="name" name="name" />
-            <small class="text-danger" th:each="e : ${#fields.errors('name')}" th:text="${e}">Incorrect name!</small>
+            <input th:field = "*{title}" th:errorclass = "bg-danger" type="text"
+                   class="form-control" id="name" name="name" />
+            <small class="text-danger" th:each="e : ${#fields.errors('title')}" th:text="${e}">Error name!</small>
+            <small class="text-danger" th:if="${productExists}">Such product already Exists!</small>
         </div>
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="description" class="h4 mb-2">Description</label>
             </div>
-            <input th:field = "*{description}" th:errorclass = "bg-danger"  type="text" class="form-control" id="description" name="description"/>
-            <small class="text-danger" th:each="e : ${#fields.errors('description')}" th:text="${e}">Incorrect description</small>
+            <input th:field = "*{description}" th:errorclass = "bg-danger"  type="text"
+                   class="form-control" id="description" name="description"/>
+            <small class="text-danger" th:each="e : ${#fields.errors('description')}"
+                   th:text="${e}">Error name!</small>
         </div>
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="category" class="h4 mb-2">Category</label>
             </div>
             <select class="browser-default custom-select" id="category" name="category">
-                <option value="">Select category</option>
-                <option th:each="e : ${categories}"
-                        th:text="${e}" th:value="${e}">Shirt</option>
+                <option   value="">Select category</option>
+                <option th:field = "*{category}" th:each="e : ${categories}"
+                        th:text="${e.name}" th:value="${e.name}">Shirt</option>
             </select>
         </div>
-        <div class="form-group">
-            <div class="text-white label-holder d-flex justify-content-center">
-                <label for="gender" class="h4 mb-2">Gender</label>
-            </div>
-            <select class="browser-default custom-select" id="gender" name="gender" >
-                <option value="">Select gender</option>
-                <option value="MALE">Male</option>
-                <option value="FEMALE">Female</option>
-            </select>
         </div>
         <div class="form-group">
             <div class="text-white label-holder d-flex justify-content-center">
                 <label for="price" class="h4 mb-2">Price</label>
             </div>
-            <input th:field = "*{price}" th:errorclass = "bg-danger"  type="number" class="form-control" id="price" name="price"/>
-            <small class="text-danger" th:each="e : ${#fields.errors('price')}" th:text="${e}" >Incorrect price!</small>
+            <input th:field = "*{price}" th:errorclass = "bg-danger"
+                   type="number" class="form-control" id="price" name="price"/>
+            <small class="text-danger" th:each="e : ${#fields.errors('price')}"
+                   th:text="${e}" >Error name!</small>
+        </div>
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="pictureUrl" class="h4 mb-2">Picture (URL)</label>
+            </div>
+            <input th:field = "*{pictureUrl}" th:errorclass = "bg-danger" type="text"
+                   class="form-control" id="pictureUrl" name="pictureUrl" />
+            <small class="text-danger" th:each="e : ${#fields.errors('pictureUrl')}" th:text="${e}">Error name!</small>
+        </div>
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="maxDiscountPercent" class="h4 mb-2">Max Discount Percent</label>
+            </div>
+            <input th:field = "*{maxDiscountPercent}" th:errorclass = "bg-danger" type="number"
+                   class="form-control" id="maxDiscountPercent" name="maxDiscountPercent" />
+            <small class="text-danger" th:each="e : ${#fields.errors('maxDiscountPercent')}"
+                   th:text="${e}">Error name!</small>
+        </div>
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="adminDiscountPercent" class="h4 mb-2">Admin Discount Percent</label>
+            </div>
+            <input th:field = "*{adminDiscountPercent}" th:errorclass = "bg-danger" type="number"
+                   class="form-control" id="adminDiscountPercent" name="adminDiscountPercent" />
+            <small class="text-danger" th:each="e : ${#fields.errors('adminDiscountPercent')}"
+                   th:text="${e}">Error name!</small>
         </div>
         <div class="button-holder d-flex justify-content-center">
             <button type="submit" class="btn btn-secondary text-white mb-3">Add Item</button>

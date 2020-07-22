@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CategoryService  {
+public class CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final ModelMapper mapper;
@@ -21,7 +21,7 @@ public class CategoryService  {
         this.mapper = mapper;
     }
 
-    public List<CategoryDto> getAllCategoriesAdmin() {
+    public List<CategoryDto> getAllCategories() {
         return this.categoryRepository.findAll().stream()
                 .map(c -> this.mapper.map(c, CategoryDto.class))
                 .collect(Collectors.toList());
@@ -51,9 +51,14 @@ public class CategoryService  {
         existingCategory.setName(updatedCategoryDto.getName());
         existingCategory.setDescription(updatedCategoryDto.getDescription());
 
-        System.out.println();
 
         this.categoryRepository.save(existingCategory);
 
-        }
+    }
+
+    public CategoryDto findByName(String name) {
+        return this.categoryRepository.findByName(name).
+                map(c -> this.mapper.map(c, CategoryDto.class))
+                .orElse(null);
+    }
 }

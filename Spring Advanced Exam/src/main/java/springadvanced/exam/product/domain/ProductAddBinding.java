@@ -4,10 +4,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.URL;
 import springadvanced.exam.category.domain.CategoryAddBinding;
 
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
 
@@ -15,10 +12,11 @@ public class ProductAddBinding {
 
     private String title;
     private String description;
-    private CategoryAddBinding category;
+    private String category;
     private String pictureUrl;
     private BigDecimal price;
-    private Double maxDiscountPercent;
+    private Integer maxDiscountPercent;
+    private Integer adminDiscountPercent;
 
     public ProductAddBinding() {
     }
@@ -42,17 +40,17 @@ public class ProductAddBinding {
     }
 
     @NotNull
-    public CategoryAddBinding getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(CategoryAddBinding category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
 
     @NotBlank(message = "Picture Url can not be blank!")
-    @URL(message = "Enter valid picture Url")
+   // @URL(message = "Enter valid picture Url")
     public String getPictureUrl() {
         return pictureUrl;
     }
@@ -70,12 +68,23 @@ public class ProductAddBinding {
         this.price = price;
     }
 
-    @Max(value = 100, message = "Deiscount percent can not be more than 100!")
-    public double getMaxDiscountPercent() {
+    @Max(value = 100, message = "Discount percent can not be more than 100!")
+    @Min(value = 0, message = "Discount percent can not be negative number!")
+    public Integer getMaxDiscountPercent() {
         return maxDiscountPercent;
     }
 
-    public void setMaxDiscountPercent(Double maxDiscountPercent) {
+    public void setMaxDiscountPercent(Integer maxDiscountPercent) {
         this.maxDiscountPercent = maxDiscountPercent;
+    }
+
+    @Max(value = 100, message = "Discount percent can not be more than 100!")
+    @Min(value = 0, message = "Discount percent can not be negative number!")
+    public Integer getAdminDiscountPercent() {
+        return adminDiscountPercent;
+    }
+
+    public void setAdminDiscountPercent(Integer adminDiscountPercent) {
+        this.adminDiscountPercent = adminDiscountPercent;
     }
 }

@@ -2,14 +2,18 @@ package springadvanced.exam.product.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import springadvanced.exam.category.domain.Category;
+import springadvanced.exam.category.service.CategoryService;
+import springadvanced.exam.product.domain.Product;
+import springadvanced.exam.product.domain.ProductAddBinding;
 import springadvanced.exam.product.domain.ProductDto;
 import springadvanced.exam.product.domain.ProductUserView;
 import springadvanced.exam.product.repository.ProductRepository;
-import springadvanced.exam.user.domain.userEntity.UserEntityDto;
 import springadvanced.exam.user.service.UserEntityService;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,14 +21,32 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final CategoryService categoryService;
     private final UserEntityService userEntityService;
     private final ModelMapper mapper;
 
     public ProductService(ProductRepository productRepository,
-                          UserEntityService userEntityService, ModelMapper mapper) {
+                          CategoryService categoryService, UserEntityService userEntityService, ModelMapper mapper) {
         this.productRepository = productRepository;
+        this.categoryService = categoryService;
         this.userEntityService = userEntityService;
         this.mapper = mapper;
+    }
+
+    @Transactional
+    public void addProduct(ProductAddBinding productAddBinding) {
+        Category category = this.mapper.map(this.categoryService.findByName(productAddBinding.getCategory()), Category.class);
+        Product product = this.mapper.map(productAddBinding, Product.class);
+        product.setCategory(category);
+        product.setAddedOn(LocalDateTime.now());
+        product.setLastUpdated(LocalDateTime.now());
+        product.setNumberOfPurchases(0);
+
+        this.productRepository.saveAndFlush(product);
+    }
+
+    public boolean productExists(String title) {
+        return this.productRepository.findByTitle(title).isPresent();
     }
 
     public List<ProductUserView> findAllProductsHomepage (String username) {

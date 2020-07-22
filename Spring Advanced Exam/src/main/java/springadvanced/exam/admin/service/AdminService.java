@@ -41,6 +41,6 @@ public class AdminService {
     }
 
     public List<CategoryDto> getAllCategories() {
-        return this.categoryService.getAllCategoriesAdmin();
+        return this.categoryService.getAllCategories();
     }
 }
