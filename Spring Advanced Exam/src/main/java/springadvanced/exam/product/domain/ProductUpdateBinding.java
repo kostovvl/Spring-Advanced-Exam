@@ -1,15 +1,13 @@
 package springadvanced.exam.product.domain;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.URL;
-import springadvanced.exam.category.domain.CategoryAddBinding;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
+public class ProductUpdateBinding {
 
-public class ProductAddBinding {
-
+    private String id;
     private String title;
     private String description;
     private String category;
@@ -18,10 +16,17 @@ public class ProductAddBinding {
     private Integer maxDiscountPercent;
     private Integer adminDiscountPercent;
 
-    public ProductAddBinding() {
+    public ProductUpdateBinding() {
     }
 
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @Length(min = 2, message = "Product title must be at least 2 characters long!")
     public String getTitle() {
@@ -52,7 +57,7 @@ public class ProductAddBinding {
 
 
     @NotBlank(message = "Picture Url can not be blank!")
-   // @URL(message = "Enter valid picture Url")
+    // @URL(message = "Enter valid picture Url")
     public String getPictureUrl() {
         return pictureUrl;
     }

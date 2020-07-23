@@ -61,7 +61,6 @@ public class CategoryController {
     @GetMapping("/details")
     public String details(@RequestParam("id") String id, Model model) {
 
-
         model.addAttribute("category", this.mapper.map(this.categoryService.findById(id), CategoryView.class));
 
         return "category/category-details";
@@ -97,16 +96,10 @@ public class CategoryController {
             redirectAttributes.addFlashAttribute("categoryUpdate", categoryUpdateBinding);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.categoryUpdate", bindingResult);
 
-            String url = "redirect:/categories/update?id=" + categoryUpdateBinding.getId();
-            return  url;
+            return "redirect:/categories/update?id=" + categoryUpdateBinding.getId();
         }
 
-        if (categoryService.categoryExists(categoryUpdateBinding.getName())) {
-            redirectAttributes.addFlashAttribute("categoryUpdate", categoryUpdateBinding);
-            redirectAttributes.addFlashAttribute("categoryExists", true);
-            String url = "redirect:/categories/update?id=" + categoryUpdateBinding.getId();
-            return  url;
-        }
+
 
         this.categoryService.updateCategory(this.mapper.map(categoryUpdateBinding, CategoryDto.class));
 

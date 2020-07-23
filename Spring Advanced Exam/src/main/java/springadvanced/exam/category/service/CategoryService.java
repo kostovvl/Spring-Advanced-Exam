@@ -37,7 +37,11 @@ public class CategoryService {
 
     public CategoryDto findById(String id) {
         return this.categoryRepository.findById(id)
-                .map(c -> this.mapper.map(c, CategoryDto.class)).orElse(null);
+                .map(c -> {
+                    CategoryDto result = this.mapper.map(c, CategoryDto.class);
+                    result.setNumberOfProducts(c.getProducts().size());
+                    return result;
+                }).orElse(null);
     }
 
     public void deleteById(String id) {

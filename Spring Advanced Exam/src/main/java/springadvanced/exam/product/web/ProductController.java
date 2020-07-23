@@ -9,6 +9,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import springadvanced.exam.category.domain.CategoryAddBinding;
 import springadvanced.exam.category.service.CategoryService;
 import springadvanced.exam.product.domain.ProductAddBinding;
+import springadvanced.exam.product.domain.ProductAdminView;
+import springadvanced.exam.product.domain.ProductUpdateBinding;
 import springadvanced.exam.product.service.ProductService;
 
 import javax.validation.Valid;
@@ -34,13 +36,15 @@ public class ProductController {
 
         //TODO try to make the input form go wide, so it all fits on one screen and the will be no need to scroll
 
-        List<CategoryAddBinding> categories = this.categoryService.getAllCategories()
-                .stream().map(c -> this.mapper.map(c, CategoryAddBinding.class)).collect(Collectors.toList());
+
 
         if (model.getAttribute("productAdd") == null) {
             model.addAttribute("productAdd", new ProductAddBinding());
         }
-        model.addAttribute("categories", categories); //Todo check why the category resets
+
+        List<CategoryAddBinding> categories = this.categoryService.getAllCategories()
+                .stream().map(c -> this.mapper.map(c, CategoryAddBinding.class)).collect(Collectors.toList());
+        model.addAttribute("categories", categories);
 
         return "product/add-product";
     }
@@ -73,7 +77,7 @@ public class ProductController {
     public String derails(@RequestParam("id") String id, Model model) {
 
         System.out.println();
-        model.addAttribute("product", this.productService.findById(id));
+        model.addAttribute("product",this.mapper.map(this.productService.findById(id), ProductAdminView.class));
 
         return "product/details-product";
     }
@@ -83,6 +87,47 @@ public class ProductController {
     public String delete(@RequestParam("id") String id) {
 
         this.productService.deleteProduct(id);
+
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/update")
+    public String update(@RequestParam("id") String id, Model model) {
+
+
+
+        if (model.getAttribute("productUpdate") == null) {
+            model.addAttribute("productUpdate", this.mapper.map(this.productService.findById(id),
+                    ProductUpdateBinding.class));
+        }
+
+        List<CategoryAddBinding> categories = this.categoryService.getAllCategories()
+                .stream().map(c -> this.mapper.map(c, CategoryAddBinding.class)).collect(Collectors.toList());
+
+        model.addAttribute("categories", categories);
+
+        return "product/update-product";
+    }
+
+    @PostMapping("/update")
+    public String updateConfirm(@Valid @ModelAttribute("productUpdate")
+                                            ProductUpdateBinding productUpdateBinding, BindingResult bindingResult,
+                                RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+
+            redirectAttributes.addFlashAttribute("productUpdate", productUpdateBinding);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.productUpdate",
+                    bindingResult);
+            return "redirect:/products/update?id=" + productUpdateBinding.getId();
+
+        }
+
+
+
+        System.out.println();
+
+        this.productService.updateProduct(productUpdateBinding);
 
         return "redirect:/admin";
     }

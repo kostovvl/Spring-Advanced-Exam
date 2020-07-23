@@ -71,12 +71,30 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public ProductAdminView findById(String id) {
+    public ProductDto findById(String id) {
         return this.productRepository.findById(id).
-                map(p -> this.mapper.map(p, ProductAdminView.class)).orElse(null);
+                map(p -> this.mapper.map(p, ProductDto.class)).orElse(null);
     }
 
     public void deleteProduct(String id) {
         this.productRepository.deleteById(id);
+    }
+
+    public void updateProduct(ProductUpdateBinding productUpdateBinding) {
+        Product existing = this.productRepository.getOne(productUpdateBinding.getId());
+
+        existing.setTitle(productUpdateBinding.getTitle());
+        existing.setDescription(productUpdateBinding.getDescription());
+        existing.setCategory(this.mapper.map(
+                this.categoryService.findByName(productUpdateBinding.getCategory()),
+                        Category.class));
+        existing.setPictureUrl(productUpdateBinding.getPictureUrl());
+        existing.setPrice(productUpdateBinding.getPrice());
+        existing.setMaxDiscountPercent(productUpdateBinding.getMaxDiscountPercent());
+        existing.setAdminDiscount(productUpdateBinding.getAdminDiscountPercent());
+        existing.setLastUpdated(LocalDateTime.now());
+
+        this.productRepository.save(existing);
+
     }
 }
