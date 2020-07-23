@@ -75,4 +75,8 @@ public class ProductService {
         return this.productRepository.findById(id).
                 map(p -> this.mapper.map(p, ProductAdminView.class)).orElse(null);
     }
+
+    public void deleteProduct(String id) {
+        this.productRepository.deleteById(id);
+    }
 }

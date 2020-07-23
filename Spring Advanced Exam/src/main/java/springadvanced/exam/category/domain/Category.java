@@ -36,7 +36,7 @@ public class Category extends BaseEntity {
     }
 
     @OneToMany(mappedBy = "category", targetEntity = Product.class,
-    fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     public List<Product> getProducts() {
         return products;
     }

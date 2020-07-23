@@ -79,5 +79,12 @@ public class ProductController {
     }
 
 
+    @GetMapping("/delete")
+    public String delete(@RequestParam("id") String id) {
+
+        this.productService.deleteProduct(id);
+
+        return "redirect:/admin";
+    }
 
 }
