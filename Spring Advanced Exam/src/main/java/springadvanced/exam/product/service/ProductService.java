@@ -4,10 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import springadvanced.exam.category.domain.Category;
 import springadvanced.exam.category.service.CategoryService;
-import springadvanced.exam.product.domain.Product;
-import springadvanced.exam.product.domain.ProductAddBinding;
-import springadvanced.exam.product.domain.ProductDto;
-import springadvanced.exam.product.domain.ProductUserView;
+import springadvanced.exam.product.domain.*;
 import springadvanced.exam.product.repository.ProductRepository;
 import springadvanced.exam.user.service.UserEntityService;
 
@@ -72,5 +69,10 @@ public class ProductService {
         return this.productRepository.findAll().stream()
                 .map(p -> this.mapper.map(p, ProductDto.class))
                 .collect(Collectors.toList());
+    }
+
+    public ProductAdminView findById(String id) {
+        return this.productRepository.findById(id).
+                map(p -> this.mapper.map(p, ProductAdminView.class)).orElse(null);
     }
 }

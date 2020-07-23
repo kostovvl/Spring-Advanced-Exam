@@ -24,7 +24,7 @@
                 <h3 class="mySticky bg-gray text-dark rounded">Products</h3>
                 <div class="mt-3 rounded badge-warning" th:each="p : ${products}">
                     <span th:text="${p.title}">Product Details</span>
-                    <a class="ml-3 text-danger">Details</a>
+                    <a class="ml-3 text-danger"th:href ="@{/products/details(id = *{p.id})}">Details</a>
                 </div>
             </div>
         </div>
