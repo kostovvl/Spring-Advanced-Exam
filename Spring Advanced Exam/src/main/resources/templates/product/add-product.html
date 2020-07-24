@@ -37,9 +37,11 @@
             </div>
             <select class="browser-default custom-select" id="category" name="category">
                 <option   value="">Select category</option>
-                <option th:field = "*{category}" th:each="e : ${categories}"
+                <option th:field = "*{category}" th:errorclass = "bg-danger"  th:each="e : ${categories}"
                         th:text="${e.name}" th:value="${e.name}">Shirt</option>
             </select>
+            <small class="text-danger" th:each="e : ${#fields.errors('category')}"
+                   th:text="${e}">Error name!</small>
         </div>
         </div>
         <div class="form-group">

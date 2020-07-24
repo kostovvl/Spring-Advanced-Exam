@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
+
+<head>
+    <th:block th:include="fragments/header" ></th:block>
+</head>
+<body>
+<header>
+    <th:block th:include="fragments/nav" ></th:block>
+</header>
+<main>
+    <h1  class="text-center mt-2"><span class="badge badge-pill badge-dark">Details</span></h1>
+    <hr class="my-3"/>
+    <div class="container-fluid bg-dark w-25 m-auto ">
+        <div class="row justify-content-center ">
+            <div class="card" style="width: 18rem;">
+                <div th:object="${user}"  class="card-body bg-gray align-content-center text-center">
+                    <h4>Username:</h4>
+                    <h5 th:text="${user.username}"></h5>
+                    <h4>Email:</h4>
+                    <h5 th:text="${user.email}"></h5>
+                    <h4>Total Purchases:</h4>
+                    <h5 th:text="${user.totalPurchases}"></h5>
+                    <h4>Total Personal Discount:</h4>
+                    <h5 th:text="${user.personalDiscount}"></h5>
+
+                    <th:block th:switch="${user.isAdmin()}">
+                        <a th:case="true" class="btn btn-danger" th:href="@{/users/downgrade/(id = ${user.id})}">Downgrade to User</a>
+                        <a th:case="false" class="btn btn-danger" th:href="@{/users/upgrade/(id = ${user.id})}">Upgrade to Admin</a>
+                    </th:block>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="footer bg-dark  py-2">
+    <th:block th:include="fragments/footer" ></th:block>
+</footer>
+</body>
+</html>

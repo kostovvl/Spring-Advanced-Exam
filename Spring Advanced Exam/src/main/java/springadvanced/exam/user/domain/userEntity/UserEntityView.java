@@ -16,6 +16,7 @@ public class UserEntityView {
     private List<UserRoleDto> roles;
     private CartDto cart;
     private int totalPurchases;
+    private boolean isAdmin;
 
     public UserEntityView() {
     }
@@ -82,5 +83,13 @@ public class UserEntityView {
 
     public void setTotalPurchases(int totalPurchases) {
         this.totalPurchases = totalPurchases;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }

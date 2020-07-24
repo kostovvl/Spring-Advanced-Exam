@@ -32,8 +32,8 @@
             <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
                 <h3 class="mySticky bg-gray text-dark rounded">Users</h3>
                 <div class="mt-3 rounded badge-success" th:each="u : ${users}">
-                    <span>User Details</span>
-                    <a class="ml-3 text-danger">Details</a>
+                    <span th:text="${u.username}">User Details</span>
+                    <a class="ml-3 text-danger" th:href ="@{/users/details/admin(id = *{u.id})}">Details</a>
                 </div>
             </div>
             <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">

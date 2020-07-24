@@ -41,7 +41,7 @@ public class ProductAddBinding {
         this.description = description;
     }
 
-    @NotNull
+    @NotBlank(message = "Category can not be Blank!")
     public String getCategory() {
         return category;
     }

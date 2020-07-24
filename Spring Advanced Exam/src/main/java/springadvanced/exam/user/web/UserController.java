@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -18,6 +19,7 @@ import springadvanced.exam.user.service.UserEntityService;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -167,5 +169,36 @@ public class UserController {
         session.invalidate();
 
         return "redirect:/";
+    }
+
+    @GetMapping("/details/admin")
+    public String detailsAdmin(@RequestParam("id") String id, Model model) {
+
+        UserEntityView userEntityView = this.mapper.map(this.userEntityService.findById(id),
+                UserEntityView.class);
+        userEntityView.setAdmin(userEntityView.getRoles().size() > 1);
+
+        System.out.println();
+
+        model.addAttribute("user", userEntityView);
+
+        return "user/details-admin";
+    }
+
+    @GetMapping("/downgrade")
+    public String downgrade(@RequestParam("id") String id) {
+
+        System.out.println();
+        this.userEntityService.changeRole("user", id);
+
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/upgrade")
+    public String upgrade(@RequestParam("id") String id) {
+
+        this.userEntityService.changeRole("admin", id);
+
+        return "redirect:/admin";
     }
 }
