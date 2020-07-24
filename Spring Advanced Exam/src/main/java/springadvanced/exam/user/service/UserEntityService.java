@@ -1,6 +1,7 @@
 package springadvanced.exam.user.service;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import springadvanced.exam.cart.domain.Cart;
@@ -122,5 +123,14 @@ public class UserEntityService {
         }
 
         this.userEntityRepository.save(userEntity);
+    }
+
+    public void increasePurchases(String username) {
+
+        UserEntity user = this.userEntityRepository.findByUsername(username).orElse(null);
+        user.setTotalPurchases(user.getTotalPurchases() + 1);
+
+        this.userEntityRepository.save(user);
+
     }
 }

@@ -97,4 +97,12 @@ public class ProductService {
         this.productRepository.save(existing);
 
     }
+
+    public void increaseProductSales(String id) {
+
+        Product product = this.productRepository.getOne(id);
+        product.setNumberOfPurchases(product.getNumberOfPurchases() + 1);
+
+        this.productRepository.save(product);
+    }
 }

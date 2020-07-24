@@ -3,6 +3,7 @@ package springadvanced.exam.home;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import springadvanced.exam.cart.service.CartService;
 import springadvanced.exam.product.service.ProductService;
 
 import java.security.Principal;
@@ -11,9 +12,11 @@ import java.security.Principal;
 public class HomeController {
 
   private final ProductService productService;
+  private final CartService cartService;
 
-    public HomeController(ProductService productService) {
+    public HomeController(ProductService productService, CartService cartService) {
         this.productService = productService;
+        this.cartService = cartService;
     }
 
     @GetMapping("/")
@@ -24,7 +27,10 @@ public class HomeController {
     @GetMapping("/home")
     public String home(Model model, Principal principal) {
 
+        System.out.println();
+
         model.addAttribute("products", this.productService.findAllProductsHomepage(principal.getName()));
+        model.addAttribute("purchases", cartService.getTotalProductsInCart(principal.getName()));
 
         return "home/home";
     }

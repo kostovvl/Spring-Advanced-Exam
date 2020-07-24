@@ -13,7 +13,7 @@ import java.util.Map;
 public class Cart extends BaseEntity {
 
     private UserEntity user;
-    private Map<Product, Integer> products;
+    private Map<String, Integer> products;
     private BigDecimal totalPrice;
 
     public Cart() {
@@ -31,11 +31,11 @@ public class Cart extends BaseEntity {
 
     @ElementCollection()
     @CollectionTable(name = "user_cart_products")
-    public Map<Product, Integer> getProducts() {
+    public Map<String, Integer> getProducts() {
         return products;
     }
 
-    public void setProducts(Map<Product, Integer> products) {
+    public void setProducts(Map<String, Integer> products) {
         this.products = products;
     }
 

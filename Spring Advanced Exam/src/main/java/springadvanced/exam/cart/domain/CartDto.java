@@ -10,7 +10,7 @@ import java.util.Map;
 public class CartDto extends BaseDto {
 
     private UserEntityDto user;
-    private Map<ProductDto, Integer> products;
+    private Map<String, Integer> products;
     private BigDecimal totalPrice;
 
     public CartDto() {
@@ -24,11 +24,11 @@ public class CartDto extends BaseDto {
         this.user = user;
     }
 
-    public Map<ProductDto, Integer> getProducts() {
+    public Map<String, Integer> getProducts() {
         return products;
     }
 
-    public void setProducts(Map<ProductDto, Integer> products) {
+    public void setProducts(Map<String, Integer> products) {
         this.products = products;
     }
 
@@ -38,5 +38,14 @@ public class CartDto extends BaseDto {
 
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public void addProduct(String productName) {
+        if (!this.products.containsKey(productName)){
+            this.products.put(productName, 1);
+        } else {
+
+            this.products.put(productName, products.get(productName) + 1);
+        }
     }
 }
