@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:include="fragments/header" ></th:block>
+</head>
+<body>
+<header>
+    <th:block th:include="fragments/nav" ></th:block>
+</header>
+<main>
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Contact Us</span></h1>
+    <hr class="hr-3"/>
+    <form th:object="${newMessage}" class="mx-auto w-25 bg-dark p-3 rounded text-center"
+          th:action="@{/messages/create}" th:method="post">
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="subject" class="h4 mb-2">Name</label>
+            </div>
+            <input th:field = "*{subject}" th:errorclass = "bg-danger" type="text"
+                   class="form-control" id="subject" name="subject" />
+            <small class="text-danger" th:each="e : ${#fields.errors('subject')}"
+                   th:text="${e}">Incorrect name!</small>
+        </div>
+
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="senderName" class="h4 mb-2">Your name</label>
+            </div>
+            <input th:field = "*{senderName}" th:errorclass = "bg-danger" type="text"
+                   class="form-control" id="senderName" name="senderName" />
+            <small class="text-danger" th:each="e : ${#fields.errors('senderName')}"
+                   th:text="${e}">Incorrect name!</small>
+        </div>
+
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="senderEmail" class="h4 mb-2">Your Email</label>
+            </div>
+            <input th:field = "*{senderEmail}" th:errorclass = "bg-danger" type="text"
+                   class="form-control" id="senderEmail" name="senderEmail" />
+            <small class="text-danger" th:each="e : ${#fields.errors('senderEmail')}"
+                   th:text="${e}">Incorrect name!</small>
+        </div>
+
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="messageBody" class="h4 mb-2">Description</label>
+            </div>
+            <textarea th:field = "*{messageBody}" th:errorclass = "bg-danger" type="text"
+                      class="form-control" id="messageBody" name="messageBody" ></textarea>
+            <small class="text-danger" th:each="e : ${#fields.errors('messageBody')}"
+                   th:text="${e}">Incorrect name!</small>
+
+        </div>
+
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-secondary text-white mb-3">Send</button>
+        </div>
+    </form>
+</main>
+<footer class="footer bg-dark  py-2">
+    <th:block th:include="fragments/footer" ></th:block>
+</footer>
+</body>
+</html>

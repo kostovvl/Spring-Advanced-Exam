@@ -1,27 +1,27 @@
 package springadvanced.exam.message.domain;
 
-import springadvanced.exam.utils.baseClasses.BaseEntity;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "messages")
-public class Message extends BaseEntity {
+public class MessageView {
 
+    private String id;
     private String senderName;
     private String senderEmail;
     private String subject;
     private String messageBody;
     private LocalDateTime createdOn;
-    private boolean isNew;
 
-    public Message() {
+    public MessageView() {
     }
 
-    @Column(name = "sender_name", nullable = false)
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getSenderName() {
         return senderName;
     }
@@ -30,7 +30,6 @@ public class Message extends BaseEntity {
         this.senderName = senderName;
     }
 
-    @Column(name = "sender_emial", nullable = false, unique = true)
     public String getSenderEmail() {
         return senderEmail;
     }
@@ -39,7 +38,6 @@ public class Message extends BaseEntity {
         this.senderEmail = senderEmail;
     }
 
-    @Column(name = "subject", nullable = false)
     public String getSubject() {
         return subject;
     }
@@ -48,7 +46,6 @@ public class Message extends BaseEntity {
         this.subject = subject;
     }
 
-    @Column(name = "message_body", nullable = false, columnDefinition = "text")
     public String getMessageBody() {
         return messageBody;
     }
@@ -57,21 +54,11 @@ public class Message extends BaseEntity {
         this.messageBody = messageBody;
     }
 
-    @Column(name = "created_on")
     public LocalDateTime getCreatedOn() {
         return createdOn;
     }
 
     public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
-    }
-
-    @Column(name = "is_new")
-    public boolean isNew() {
-        return isNew;
-    }
-
-    public void setNew(boolean aNew) {
-        isNew = aNew;
     }
 }

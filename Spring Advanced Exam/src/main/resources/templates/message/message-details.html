@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:include="fragments/header" ></th:block>
+</head>
+<body>
+<header>
+    <th:block th:include="fragments/nav" ></th:block>
+</header>
+<main>
+    <h1  class="text-center mt-2"><span class="badge badge-pill badge-dark">Details</span></h1>
+    <hr class="my-3"/>
+    <div th:object="${message}" class="container-fluid bg-dark w-25 m-auto ">
+        <div class="row justify-content-center ">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body bg-gray align-content-center text-center">
+                    <h6 th:text="*{senderName}" >Item name</h6>
+                    <h6 th:text="*{senderEmail}" >Item name</h6>
+                    <h6 th:text="*{subject}" >Item name</h6>
+                    <p class="card-text" th:text="*{messageBody}" >Description </p>
+                    <h6 th:text="*{createdOn}" >Item name</h6>
+                    <a class="btn btn-danger" th:href="@{/categories/delete(id = *{id})}">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="footer bg-dark  py-2">
+    <th:block th:include="fragments/footer" ></th:block>
+</footer>
+</body>
+</html>

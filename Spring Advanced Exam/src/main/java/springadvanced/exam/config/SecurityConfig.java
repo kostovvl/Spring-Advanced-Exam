@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 antMatchers("/home").
                 authenticated().
                 and().
-                formLogin().loginPage("/login").loginProcessingUrl("/users/login/authenticate").permitAll().
+                formLogin().loginPage("/users/login").loginProcessingUrl("/users/login/authenticate").permitAll().
                 defaultSuccessUrl("/home").
                 failureForwardUrl("/users/login?error=bad_credentials").
                 and().

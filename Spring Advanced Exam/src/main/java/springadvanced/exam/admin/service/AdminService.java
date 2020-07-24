@@ -37,7 +37,7 @@ public class AdminService {
     }
 
     public List<MessageDto> getAllMessages() {
-        return null;
+        return this.messageService.getAllMessages();
     }
 
     public List<CategoryDto> getAllCategories() {
