@@ -46,7 +46,7 @@ public class ProductUpdateBinding {
         this.description = description;
     }
 
-    @NotNull
+    @NotBlank(message = "Select category!")
     public String getCategory() {
         return category;
     }

@@ -32,8 +32,19 @@ public class MessageService {
     }
 
     public List<MessageDto> getAllMessages() {
-        return this.messageRepository.findAllOrOrderByNew(true)
+        return this.messageRepository.findAll()
                 .stream()
+                .sorted((a, b) -> {
+                    int result;
+                    if (a.isNew()) {
+                        result = -1;
+                    } else if (!a.isNew()) {
+                        result = 1;
+                    } else {
+                        result = 0;
+                    }
+                    return result;
+                })
                 .map(m -> this.mapper.map(m, MessageDto.class))
                 .collect(Collectors.toList());
     }
@@ -43,7 +54,7 @@ public class MessageService {
                 .map(m -> this.mapper.map(m, MessageView.class)).
                 orElse(null);
     }
-    
+
     public void markAsRead(String id) {
         Message message = this.messageRepository.getOne(id);
         message.setNew(false);

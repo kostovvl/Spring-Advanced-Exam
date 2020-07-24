@@ -8,6 +8,7 @@ public class MessageDto extends BaseDto {
     private String senderEmail;
     private String subject;
     private String messageBody;
+    private boolean isNew;
 
     public MessageDto() {
     }
@@ -42,5 +43,13 @@ public class MessageDto extends BaseDto {
 
     public void setMessageBody(String messageBody) {
         this.messageBody = messageBody;
+    }
+
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public void setNew(boolean aNew) {
+        isNew = aNew;
     }
 }

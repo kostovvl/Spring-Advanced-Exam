@@ -10,6 +10,7 @@ public class MessageView {
     private String subject;
     private String messageBody;
     private LocalDateTime createdOn;
+    private boolean isNew;
 
     public MessageView() {
     }
@@ -60,5 +61,13 @@ public class MessageView {
 
     public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public void setNew(boolean aNew) {
+        isNew = aNew;
     }
 }
