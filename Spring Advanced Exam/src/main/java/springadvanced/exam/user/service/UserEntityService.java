@@ -88,7 +88,7 @@ public class UserEntityService {
     public List<UserEntityDto> getAllUsers() {
         return this.userEntityRepository.findAll().stream()
                 .map(u -> this.mapper.map(u, UserEntityDto.class))
-                .filter(u -> !u.getUsername().equals("Admin") && !u.getUsername().equals("Admin1"))
+                .filter(u -> !u.getUsername().equals("Admin1") && !u.getUsername().equals("Admin2"))
                 .collect(Collectors.toList());
     }
 
