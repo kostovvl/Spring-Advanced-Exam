@@ -11,7 +11,6 @@ public class CartDto extends BaseDto {
 
     private UserEntityDto user;
     private Map<String, Integer> products;
-    private BigDecimal totalPrice;
 
     public CartDto() {
     }
@@ -30,14 +29,6 @@ public class CartDto extends BaseDto {
 
     public void setProducts(Map<String, Integer> products) {
         this.products = products;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public void addProduct(String productName) {

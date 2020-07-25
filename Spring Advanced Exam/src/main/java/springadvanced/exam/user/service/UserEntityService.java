@@ -45,7 +45,6 @@ public class UserEntityService {
     public void registerUser(UserEntityDto userEntityDto) {
         UserEntity userEntity = this.mapper.map(userEntityDto, UserEntity.class);
         Cart cart = new Cart();
-        cart.setTotalPrice(new BigDecimal("0"));
         UserRole user = new UserRole("ROLE_USER");
 
         cart.setUser(userEntity);

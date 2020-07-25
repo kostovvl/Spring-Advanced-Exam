@@ -105,4 +105,8 @@ public class ProductService {
 
         this.productRepository.save(product);
     }
+
+    public BigDecimal GetPrice(String title) {
+        return this.productRepository.findByTitle(title).orElse(null).getPrice();
+    }
 }

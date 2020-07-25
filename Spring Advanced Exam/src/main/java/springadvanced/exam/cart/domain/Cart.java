@@ -14,7 +14,6 @@ public class Cart extends BaseEntity {
 
     private UserEntity user;
     private Map<String, Integer> products;
-    private BigDecimal totalPrice;
 
     public Cart() {
     }
@@ -39,12 +38,5 @@ public class Cart extends BaseEntity {
         this.products = products;
     }
 
-    @Column(name = "total_price")
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
 
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
 }

@@ -36,7 +36,6 @@ public class InitializeDefaultAdmin implements CommandLineRunner {
         admin.setTotalPurchases(0);
 
         Cart cart = new Cart();
-        cart.setTotalPrice(new BigDecimal("0"));
         cart.setUser(admin);
 
         UserRole roleAdmin = new UserRole("ROLE_ADMIN");
