@@ -45,22 +45,25 @@
                             </form>
                         </li>
 <!--                    Тук трябва да вкарам админските бутони-->
-                    <li class="col-md-4" >
+                    <li sec:authorize="hasRole('USER')" class="col-md-3" >
                         <form th:action="@{/users/details}" th:method="get">
                             <div class="button-holder d-flex justify-content-center">
                                 <button type="submit" class="btn btn-warning  mb-3">Profile</button>
                             </div>
                         </form>
                     </li>
-                    <li class="col-md-2" >
+                    <li class="col-md-4" >
                         <form   th:action="@{/cart/all}" th:method="get">
-                            <div class="button-holder d-flex justify-content-center">
+                            <div th:switch = "${purchases} == null"
+                                 class="button-holder d-flex justify-content-center">
                                 <button type="submit" class="btn btn-warning  mb-3"
-                                th:text="| Cart  ${purchases}|" >Cart</button>
+                                        th:case = "false" th:text="| Cart  ${purchases}|">Cart</button>
+                                <button type="submit" class="btn btn-warning  mb-3"
+                                        th:case = "true" th:text = "|Cart|">Cart</button>
                             </div>
                         </form>
                     </li>
-                    <li class="col-md-4">
+                    <li class="col-md-2">
                         <form th:action="@{/users/logout}" th:method="post">
                             <div class="button-holder d-flex justify-content-center">
                                 <button type="submit" class="btn btn-warning  mb-3">Logout</button>
