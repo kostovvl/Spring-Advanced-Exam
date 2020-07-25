@@ -20,7 +20,7 @@
                     <h6 th:text="*{subject}" >Item name</h6>
                     <p class="card-text" th:text="*{messageBody}" >Description </p>
                     <h6 th:text="*{createdOn}" >Item name</h6>
-                    <a class="btn btn-danger" th:href="@{/messages/delete(id = *{id})}">Delete</a>
+                    <a class="btn btn-danger" th:href="@{/root-admin/messages/delete(id = *{id})}">Delete</a>
                 </div>
             </div>
         </div>

@@ -47,21 +47,6 @@ public class MessageController {
         return  principal == null ? "redirect:/" : "redirect:/home";
     }
 
-    @GetMapping("/details")
-    public String messageDetails(@RequestParam("id") String id, Model model) {
 
-        model.addAttribute("message", this.messageService.findById(id));
-        this.messageService.markAsRead(id);
-
-        return "message/message-details";
-    }
-
-    @GetMapping("/delete")
-    public String delete(@RequestParam("id") String id) {
-
-        this.messageService.deleteById(id);
-
-        return "redirect:/admin";
-    }
 
 }

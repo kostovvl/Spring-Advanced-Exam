@@ -171,34 +171,5 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/details/admin")
-    public String detailsAdmin(@RequestParam("id") String id, Model model) {
 
-        UserEntityView userEntityView = this.mapper.map(this.userEntityService.findById(id),
-                UserEntityView.class);
-        userEntityView.setAdmin(userEntityView.getRoles().size() > 1);
-
-        System.out.println();
-
-        model.addAttribute("user", userEntityView);
-
-        return "user/details-admin";
-    }
-
-    @GetMapping("/downgrade")
-    public String downgrade(@RequestParam("id") String id) {
-
-        System.out.println();
-        this.userEntityService.changeRole("user", id);
-
-        return "redirect:/admin";
-    }
-
-    @GetMapping("/upgrade")
-    public String upgrade(@RequestParam("id") String id) {
-
-        this.userEntityService.changeRole("admin", id);
-
-        return "redirect:/admin";
-    }
 }

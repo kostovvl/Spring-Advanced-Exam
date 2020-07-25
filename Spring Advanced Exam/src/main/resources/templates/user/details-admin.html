@@ -26,8 +26,8 @@
                     <h5 th:text="${user.personalDiscount}"></h5>
 
                     <th:block th:switch="${user.isAdmin()}">
-                        <a th:case="true" class="btn btn-danger" th:href="@{/users/downgrade/(id = ${user.id})}">Downgrade to User</a>
-                        <a th:case="false" class="btn btn-danger" th:href="@{/users/upgrade/(id = ${user.id})}">Upgrade to Admin</a>
+                        <a th:case="true" class="btn btn-danger" th:href="@{/root-admin/downgrade/(id = ${user.id})}">Downgrade to User</a>
+                        <a th:case="false" class="btn btn-danger" th:href="@{/root-admin/upgrade/(id = ${user.id})}">Upgrade to Admin</a>
                     </th:block>
 
                 </div>

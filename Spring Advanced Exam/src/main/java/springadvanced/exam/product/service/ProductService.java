@@ -109,4 +109,8 @@ public class ProductService {
     public BigDecimal GetPrice(String title) {
         return this.productRepository.findByTitle(title).orElse(null).getPrice();
     }
+
+    // FROM HERE START METHODS FOR USER MANIPULATION
+
+
 }
