@@ -9,7 +9,7 @@
     <th:block th:include="fragments/nav" ></th:block>
 </header>
 <main>
-    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Register</span></h1>
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Update</span></h1>
     <hr class="hr-3"/>
     <form th:object="${updateUser}" class="mx-auto mb-5 text-center w-25 bg-dark p-3 rounded"
           th:action="@{/users/update}" th:method="post">
@@ -70,7 +70,7 @@
             <small class="text-danger" th:if="${confirmNewPassword}">Passwords don't match!</small>
         </div>
         <div class="button-holder d-flex justify-content-center">
-            <button type="submit" class="btn btn-secondary text-white mb-3" value="Register"\>Register</button>
+            <button type="submit" class="btn btn-secondary text-white mb-3" value="Register"\>Update</button>
         </div>
     </form>
 </main>
