@@ -57,7 +57,11 @@ public class ProductService {
                    if (totalDiscount > p.getMaxDiscountPercent()) {
                        totalDiscount = p.getMaxDiscountPercent();
                    }
-                    BigDecimal discountedPrice = p.getPrice().multiply(new BigDecimal(totalDiscount/100));
+
+                    BigDecimal discount = p.getPrice().multiply(new BigDecimal(totalDiscount))
+                            .divide(new BigDecimal("100"));
+
+                    BigDecimal discountedPrice = p.getPrice().subtract(discount);
                    productUserView.setDiscountedPrice(discountedPrice);
 
                    return productUserView;
@@ -106,11 +110,11 @@ public class ProductService {
         this.productRepository.save(product);
     }
 
-    public BigDecimal GetPrice(String title) {
-        return this.productRepository.findByTitle(title).orElse(null).getPrice();
+    public ProductDto FindByTitle(String title) {
+
+        return this.mapper.map(this.productRepository.findByTitle(title).orElse(null), ProductDto.class);
     }
 
-    // FROM HERE START METHODS FOR USER MANIPULATION
 
 
 }

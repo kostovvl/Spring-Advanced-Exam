@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import springadvanced.exam.cart.service.CartService;
+import springadvanced.exam.user.domain.userEntity.UserEntity;
+import springadvanced.exam.user.domain.userEntity.UserEntityDto;
 import springadvanced.exam.user.service.UserEntityService;
 import java.security.Principal;
 
@@ -34,10 +36,11 @@ public class CartController {
 
     @GetMapping("/all")
     public String all(Model model, Principal principal) {
-        String cartId = this.userEntityService.findByUsername(principal.getName()).getCart().getId();
+        UserEntityDto user = this.userEntityService.findByUsername(principal.getName());
+        String cartId = user.getCart().getId();
 
-        model.addAttribute("products", this.cartService.getAllProducts(cartId));
-        model.addAttribute("price", this.cartService.totalCartPrice(cartId));
+        model.addAttribute("products", this.cartService.getAllProducts(cartId, user.getPersonalDiscount()));
+        model.addAttribute("price", this.cartService.totalCartPrice(cartId, user.getPersonalDiscount()));
 
         return "cart/cart";
     }

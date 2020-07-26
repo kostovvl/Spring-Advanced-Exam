@@ -59,7 +59,7 @@ public class CartService {
         return result;
     }
 
-    public List<ProductCartView> getAllProducts(String cartId) {
+    public List<ProductCartView> getAllProducts(String cartId, Double personalDiscount) {
 
         List<ProductCartView> result = new ArrayList<>();
 
@@ -69,7 +69,21 @@ public class CartService {
             ProductCartView productCartView = new ProductCartView();
             productCartView.setTitle(product.getKey());
             productCartView.setQuantity(product.getValue());
-            BigDecimal price = this.productService.GetPrice(product.getKey());
+            ProductDto productDto = this.productService.FindByTitle(product.getKey());
+
+            System.out.println();
+
+            double totalDiscount = personalDiscount + productDto.getAdminDiscount();
+            if (totalDiscount > productDto.getMaxDiscountPercent()) {
+                totalDiscount = productDto.getMaxDiscountPercent();
+            }
+
+            BigDecimal discount = productDto.getPrice().multiply(new BigDecimal(totalDiscount))
+                    .divide(new BigDecimal("100"));
+
+            BigDecimal price = productDto.getPrice().subtract(discount);
+
+
             productCartView.setTotalPrice(price.multiply(new BigDecimal(product.getValue())));
             result.add(productCartView);
         }
@@ -77,8 +91,8 @@ public class CartService {
         return result;
     }
 
-    public BigDecimal totalCartPrice(String cartId) {
-        List<ProductCartView> products = getAllProducts(cartId);
+    public BigDecimal totalCartPrice(String cartId, Double personalDiscount) {
+        List<ProductCartView> products = getAllProducts(cartId, personalDiscount);
         BigDecimal totalPrice = new BigDecimal("0");
         for (ProductCartView product : products) {
             totalPrice = totalPrice.add(product.getTotalPrice());
