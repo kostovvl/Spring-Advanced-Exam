@@ -37,7 +37,9 @@
                     <ul class="offer-details list-group list-group-flush">
                         <li class="list-group-item">
                             <div class="card-text text-center"
-                                 th:text="| Discounted Price: *{discountedPrice}|"><span>Item price</span>
+                                 th:text="| Discounted Price:
+                                 ${#numbers.formatDecimal(i.discountedPrice, 0, 'COMMA', 2, 'POINT')} lv|">
+                                <span>Item price</span>
                             </div>
                         </li>
                     </ul>
