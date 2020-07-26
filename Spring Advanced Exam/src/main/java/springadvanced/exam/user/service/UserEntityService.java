@@ -14,6 +14,7 @@ import springadvanced.exam.user.repository.UserRoleRepository;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -55,6 +56,7 @@ public class UserEntityService {
         userEntity.setPersonalDiscount(0.0);
         userEntity.setPassword(this.passwordEncoder.encode(userEntity.getPassword()));
         userEntity.setTotalPurchases(0);
+        userEntity.setRegisteredOn(LocalDateTime.now());
         this.userEntityRepository.saveAndFlush(userEntity);
     }
 

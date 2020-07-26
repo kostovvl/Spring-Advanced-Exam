@@ -58,6 +58,7 @@ public class ProductService {
                        totalDiscount = p.getMaxDiscountPercent();
                    }
 
+                   productUserView.setTotalDiscount(totalDiscount);
                     BigDecimal discount = p.getPrice().multiply(new BigDecimal(totalDiscount))
                             .divide(new BigDecimal("100"));
 

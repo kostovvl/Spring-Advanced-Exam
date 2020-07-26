@@ -15,9 +15,10 @@
         <div class="row justify-content-center ">
             <div class="card" style="width: 18rem;">
                 <div class="card-body bg-gray align-content-center text-center">
-                    <h6 th:text="*{name}" >Item name</h6>
+                    <h6 th:text="| Name: *{name}|" >Item name</h6>
+                    <h6>Category Description:</h6>
                     <p class="card-text" th:text="*{description}" >Description </p>
-                    <h6 th:text="*{numberOfProducts}" >Item name</h6>
+                    <h6 th:text="| Number of products: *{numberOfProducts}|" >Item name</h6>
                     <a class="btn btn-danger" th:href="@{/admin/categories/delete(id = *{id})}">Delete</a>
                     <a class="btn btn-danger" th:href="@{/admin/categories/update(id = *{id})}">Update</a>
                 </div>

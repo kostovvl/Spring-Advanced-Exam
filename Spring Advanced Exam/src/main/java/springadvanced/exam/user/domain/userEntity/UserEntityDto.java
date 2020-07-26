@@ -3,6 +3,7 @@ import springadvanced.exam.cart.domain.CartDto;
 import springadvanced.exam.user.domain.userRole.UserRoleDto;
 import springadvanced.exam.utils.baseClasses.BaseDto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class UserEntityDto extends BaseDto {
@@ -15,7 +16,7 @@ public class UserEntityDto extends BaseDto {
     private List<UserRoleDto> roles;
     private CartDto cart;
     private int totalPurchases;
-
+    private LocalDateTime registeredOn;
     public UserEntityDto() {
     }
 
@@ -83,5 +84,13 @@ public class UserEntityDto extends BaseDto {
 
     public void setTotalPurchases(int totalPurchases) {
         this.totalPurchases = totalPurchases;
+    }
+
+    public LocalDateTime getRegisteredOn() {
+        return registeredOn;
+    }
+
+    public void setRegisteredOn(LocalDateTime registeredOn) {
+        this.registeredOn = registeredOn;
     }
 }

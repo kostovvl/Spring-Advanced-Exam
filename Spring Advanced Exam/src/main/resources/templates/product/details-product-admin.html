@@ -14,18 +14,18 @@
         <div th:object="${product}" class="container-fluid bg-dark w-25 m-auto ">
             <div class="row justify-content-center ">
                 <div class="card" style="width: 18rem;">
+                    <h4 class="text-center" th:text="|Title: *{title}|" >Item name</h4>
                     <img th:src="*{pictureUrl}" class="img-thumbnail rounded">
                     <div class="card-body bg-gray align-content-center text-center">
-                        <h6 th:text="*{title}" >Item name</h6>
+                        <h6>Description:</h6>
                         <p class="card-text" th:text="*{description}" > </p>
-                        <h6 th:text="*{price}" >Price</h6>
-                        <h6 th:text="*{category.name}" >Category</h6>
-                        <h6 th:text="*{addedOn}" >Added On</h6>
-                        <h6 th:text="*{lastUpdated}" >Last Updated</h6>
-                        <h6 th:text="*{lastUpdated}" >Last Updated</h6>
-                        <h6 th:text="*{maxDiscountPercent}" >Max Discount Percent</h6>
-                        <h6 th:text="*{adminDiscount}" >Admin Discount</h6>
-                        <h6 th:text="*{numberOfPurchases}" >Number of Purchases</h6>
+                        <h6 th:text="|Price: *{price}|" >Price</h6>
+                        <h6 th:text="|Category: *{category.name}|">Category</h6>
+                        <h6 th:text="|Added on: *{#temporals.format(addedOn, 'dd-MM-yyyy HH:mm')}|" >Added On</h6>
+                        <h6 th:text="|Last Update: *{#temporals.format(lastUpdated, 'dd-MM-yyyy HH:mm')}|" >Last Updated</h6>
+                        <h6 th:text="|Max possible discount: *{maxDiscountPercent} %|" >Max Discount Percent</h6>
+                        <h6 th:text="|Admin discount: *{adminDiscount} %|" >Admin Discount</h6>
+                        <h6 th:text="|Number of purchases: *{numberOfPurchases}|" >Number of Purchases</h6>
                         <a class="btn btn-danger" th:href="@{/admin/products/update(id = *{id})}">Update</a>
                         <a class="btn btn-danger" th:href="@{/admin/products/delete(id = *{id})}">Delete</a>
                     </div>

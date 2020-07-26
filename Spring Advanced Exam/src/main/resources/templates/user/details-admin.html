@@ -18,12 +18,13 @@
                 <div th:object="${user}"  class="card-body bg-gray align-content-center text-center">
                     <h4>Username:</h4>
                     <h5 th:text="${user.username}"></h5>
-                    <h4>Email:</h4>
-                    <h5 th:text="${user.email}"></h5>
-                    <h4>Total Purchases:</h4>
-                    <h5 th:text="${user.totalPurchases}"></h5>
-                    <h4>Total Personal Discount:</h4>
-                    <h5 th:text="${user.personalDiscount}"></h5>
+                    <h6>Email:</h6>
+                    <h6 th:text="${user.email}"></h6>
+                    <h6>Total Purchases:</h6>
+                    <h6 th:text="${user.totalPurchases}"></h6>
+                    <h6>Total Personal Discount:</h6>
+                    <h6 th:text="${user.personalDiscount}"></h6>
+                    <h6 th:text="|Added on: *{#temporals.format(registeredOn, 'dd-MM-yyyy HH:mm')}|" >Added On</h6>
 
                     <th:block th:switch="${user.isAdmin()}">
                         <a th:case="true" class="btn btn-danger" th:href="@{/root-admin/downgrade/(id = ${user.id})}">Downgrade to User</a>

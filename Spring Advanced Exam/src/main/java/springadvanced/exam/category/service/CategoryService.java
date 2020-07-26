@@ -23,7 +23,11 @@ public class CategoryService {
 
     public List<CategoryDto> getAllCategories() {
         return this.categoryRepository.findAll().stream()
-                .map(c -> this.mapper.map(c, CategoryDto.class))
+                .map(c -> {
+                    CategoryDto category = this.mapper.map(c, CategoryDto.class);
+                    category.setNumberOfProducts(c.getProducts().size());
+                    return category;
+                })
                 .collect(Collectors.toList());
     }
 

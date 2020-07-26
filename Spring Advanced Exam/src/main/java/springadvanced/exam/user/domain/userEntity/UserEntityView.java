@@ -3,6 +3,7 @@ package springadvanced.exam.user.domain.userEntity;
 import springadvanced.exam.cart.domain.CartDto;
 import springadvanced.exam.user.domain.userRole.UserRoleDto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class UserEntityView {
@@ -17,6 +18,7 @@ public class UserEntityView {
     private CartDto cart;
     private int totalPurchases;
     private boolean isAdmin;
+    private LocalDateTime registeredOn;
 
     public UserEntityView() {
     }
@@ -91,5 +93,13 @@ public class UserEntityView {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public LocalDateTime getRegisteredOn() {
+        return registeredOn;
+    }
+
+    public void setRegisteredOn(LocalDateTime registeredOn) {
+        this.registeredOn = registeredOn;
     }
 }

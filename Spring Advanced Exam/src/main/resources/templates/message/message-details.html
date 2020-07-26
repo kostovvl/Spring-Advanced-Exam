@@ -9,17 +9,18 @@
     <th:block th:include="fragments/nav" ></th:block>
 </header>
 <main>
-    <h1  class="text-center mt-2"><span class="badge badge-pill badge-dark">Details</span></h1>
+    <h1  class="text-center mt-2"><span class="badge badge-pill badge-dark">Message Details</span></h1>
     <hr class="my-3"/>
     <div th:object="${message}" class="container-fluid bg-dark w-25 m-auto ">
         <div class="row justify-content-center ">
             <div class="card" style="width: 18rem;">
                 <div class="card-body bg-gray align-content-center text-center">
-                    <h6 th:text="*{senderName}" >Item name</h6>
-                    <h6 th:text="*{senderEmail}" >Item name</h6>
-                    <h6 th:text="*{subject}" >Item name</h6>
+                    <h5 th:text="|Sender: *{senderName}|" >Item name</h5>
+                    <h6 th:text="|Sender Emial: *{senderEmail}|" >Item name</h6>
+                    <h6 th:text="|Subject: *{subject}|" >Item name</h6>
+                    <h6>Message:</h6>
                     <p class="card-text" th:text="*{messageBody}" >Description </p>
-                    <h6 th:text="*{createdOn}" >Item name</h6>
+                    <h6 th:text="|Sent on: *{#temporals.format(createdOn, 'dd-MM-yyyy HH:mm')}|" >Item name</h6>
                     <a class="btn btn-danger" th:href="@{/root-admin/messages/delete(id = *{id})}">Delete</a>
                 </div>
             </div>

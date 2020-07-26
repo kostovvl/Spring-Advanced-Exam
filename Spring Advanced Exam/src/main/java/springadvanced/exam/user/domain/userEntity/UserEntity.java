@@ -5,6 +5,7 @@ import springadvanced.exam.user.domain.userRole.UserRole;
 import springadvanced.exam.utils.baseClasses.BaseEntity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity()
@@ -18,6 +19,7 @@ public class UserEntity extends BaseEntity {
     private List<UserRole> roles;
     private Cart cart;
     private int totalPurchases;
+    private LocalDateTime registeredOn;
 
     public UserEntity() {
     }
@@ -85,5 +87,14 @@ public class UserEntity extends BaseEntity {
 
     public void setTotalPurchases(int totalPurchases) {
         this.totalPurchases = totalPurchases;
+    }
+
+    @Column(name = "registered_on")
+    public LocalDateTime getRegisteredOn() {
+        return registeredOn;
+    }
+
+    public void setRegisteredOn(LocalDateTime registeredOn) {
+        this.registeredOn = registeredOn;
     }
 }
