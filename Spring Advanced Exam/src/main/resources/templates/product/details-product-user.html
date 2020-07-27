@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec='http://www.thymeleaf.org/extras/spring-security'>
+
+<head>
+    <th:block th:include="fragments/header" ></th:block>
+</head>
+<body>
+<header>
+    <th:block th:include="fragments/nav" ></th:block>
+</header>
+<main>
+    <h1  class="text-center mt-2"><span class="badge badge-pill badge-dark">Details</span></h1>
+    <hr class="my-3"/>
+    <div th:object="${product}" class="container-fluid bg-dark w-25 m-auto ">
+        <div class="row justify-content-center ">
+            <div class="card" style="width: 18rem;">
+                <h4 class="text-center" th:text="|Title: *{title}|" >Item name</h4>
+                <img th:src="*{pictureUrl}" class="img-thumbnail rounded">
+                <div class="card-body bg-gray align-content-center text-center">
+                    <h6>Description:</h6>
+                    <p class="card-text" th:text="*{description}" > </p>
+                    <h6 th:text="|Category: *{category.name}|">Category</h6>
+                    <h6 th:text="|Price: *{price}|" >Price</h6>
+                    <h6 th:text="|Total Discount: *{totalDiscount} %|">Category</h6>
+                    <h6 th:text="|Discounted Price:
+                    ${#numbers.formatDecimal(product.discountedPrice, 0, 'COMMA', 2, 'POINT')}|" >Price</h6>
+                    <th:block sec:authorize="hasRole('ADMIN')">
+                    <a class="btn btn-danger" th:href="@{/admin/products/details(id = *{id})}">Admin Details</a>
+                    </th:block>
+                    <a class="btn btn-danger" th:href="@{/cart/add(id = *{id})}">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="footer bg-dark  py-2">
+    <th:block th:include="fragments/footer" ></th:block>
+</footer>
+</body>
+</html>

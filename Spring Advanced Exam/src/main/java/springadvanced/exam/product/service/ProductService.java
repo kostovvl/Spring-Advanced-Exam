@@ -81,6 +81,30 @@ public class ProductService {
                 map(p -> this.mapper.map(p, ProductDto.class)).orElse(null);
     }
 
+    public ProductUserView findByIdView(String id, String username) {
+
+        Double loggedUserDiscount = this.userEntityService.findByUsername(username).getPersonalDiscount();
+
+        return this.productRepository.findById(id)
+                .map(p -> {
+                    ProductUserView productUserView = this.mapper.map(p , ProductUserView.class);
+                    double totalDiscount = p.getAdminDiscount() + loggedUserDiscount;
+                    if (totalDiscount > p.getMaxDiscountPercent()) {
+                        totalDiscount = p.getMaxDiscountPercent();
+                    }
+
+                    productUserView.setTotalDiscount(totalDiscount);
+                    BigDecimal discount = p.getPrice().multiply(new BigDecimal(totalDiscount))
+                            .divide(new BigDecimal("100"));
+
+                    BigDecimal discountedPrice = p.getPrice().subtract(discount);
+                    productUserView.setDiscountedPrice(discountedPrice);
+
+                    return productUserView;
+                }).orElse(null);
+
+    }
+
     public void deleteProduct(String id) {
         this.productRepository.deleteById(id);
     }

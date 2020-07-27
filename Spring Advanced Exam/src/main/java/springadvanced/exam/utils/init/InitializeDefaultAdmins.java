@@ -43,13 +43,16 @@ public class InitializeDefaultAdmins implements CommandLineRunner {
             cart.setUser(admin);
             admin.setCart(cart);
 
+            UserRole roleUser = new UserRole("ROLE_USER");
+            roleUser.setUser(admin);
+
             UserRole roleAdmin = new UserRole("ROLE_ADMIN");
             roleAdmin.setUser(admin);
 
             UserRole roleRootAdmin = new UserRole("ROLE_ROOT_ADMIN");
             roleRootAdmin.setUser(admin);
 
-            admin.setRoles(List.of(roleAdmin, roleRootAdmin));
+            admin.setRoles(List.of(roleUser, roleAdmin, roleRootAdmin));
 
             admins.add(admin);
         }
