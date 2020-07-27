@@ -63,19 +63,13 @@ public class UserEntityService {
         this.userEntityRepository.saveAndFlush(userEntity);
     }
 
-    @Transactional
-    @Cacheable("logged_user")
+
     public UserEntityDto findByUsername(String username) {
         return this.userEntityRepository.findByUsername(username)
                 .map(u -> this.mapper.map(u, UserEntityDto.class))
                 .orElse(null);
     }
 
-
-    @CacheEvict(cacheNames = "logged_user", allEntries = true)
-    public void userLoggedOut() {
-        System.out.println("User Logged out!");
-    }
 
     public String getUserOldPassword(String username) {
 

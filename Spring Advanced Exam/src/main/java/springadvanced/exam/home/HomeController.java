@@ -26,8 +26,6 @@ public class HomeController {
     @GetMapping("/")
     public String index() {
 
-        this.userEntityService.userLoggedOut();
-
         return "home/index";
     }
 

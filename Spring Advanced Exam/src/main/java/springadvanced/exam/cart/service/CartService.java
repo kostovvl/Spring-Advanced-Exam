@@ -48,11 +48,13 @@ public class CartService {
     }
 
     public int getTotalProductsInCart(String username) {
-        CartDto cartDto = this.userEntityService.findByUsername(username).getCart();
+        String cartId = this.userEntityService.findByUsername(username).getCart().getId();
+
+        Cart cart = this.cartRepository.getOne(cartId);
 
         int result = 0;
 
-        for (Map.Entry<String, Integer> productDtoIntegerEntry : cartDto.getProducts().entrySet()) {
+        for (Map.Entry<String, Integer> productDtoIntegerEntry : cart.getProducts().entrySet()) {
             result += productDtoIntegerEntry.getValue();
         }
 

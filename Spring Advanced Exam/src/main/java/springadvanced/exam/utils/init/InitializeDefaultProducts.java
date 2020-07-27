@@ -59,6 +59,7 @@ public class InitializeDefaultProducts implements CommandLineRunner {
             Category category = this.categoryRepository.findByName(categoryName)
                     .orElse(null);
             product.setCategory(category);
+            product.setPictureUrl(String.format("/img/image%s.jpg", (random.nextInt(5) + 1)));
             product.setAddedOn(LocalDateTime.now());
             product.setLastUpdated(LocalDateTime.now());
             product.setPrice(new BigDecimal(random.nextInt(200)));
