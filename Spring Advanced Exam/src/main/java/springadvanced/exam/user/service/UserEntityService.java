@@ -63,6 +63,7 @@ public class UserEntityService {
         this.userEntityRepository.saveAndFlush(userEntity);
     }
 
+    @Transactional
     @Cacheable("logged_user")
     public UserEntityDto findByUsername(String username) {
         return this.userEntityRepository.findByUsername(username)
@@ -70,15 +71,11 @@ public class UserEntityService {
                 .orElse(null);
     }
 
-    @CachePut("logged_user")
-    public UserEntityDto refreshCachedUser(String username) {
-        return this.userEntityRepository.findByUsername(username)
-                .map(u -> this.mapper.map(u, UserEntityDto.class))
-                .orElse(null);
-    }
 
     @CacheEvict(cacheNames = "logged_user", allEntries = true)
-    public void userLoggedOut() {}
+    public void userLoggedOut() {
+        System.out.println("User Logged out!");
+    }
 
     public String getUserOldPassword(String username) {
 
@@ -94,7 +91,6 @@ public class UserEntityService {
         updatedUserEntity.setPassword(this.passwordEncoder.encode(userEntityUpdateBinding.getNewPassword()));
         this.userEntityRepository.save(updatedUserEntity);
 
-        refreshCachedUser(updatedUserEntity.getUsername());
     }
 
     public void deleteUser(String id) {

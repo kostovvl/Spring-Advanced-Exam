@@ -5,22 +5,29 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import springadvanced.exam.cart.service.CartService;
 import springadvanced.exam.product.service.ProductService;
+import springadvanced.exam.user.service.UserEntityService;
 
 import java.security.Principal;
 
 @Controller
 public class HomeController {
 
+    private final UserEntityService userEntityService;
   private final ProductService productService;
   private final CartService cartService;
 
-    public HomeController(ProductService productService, CartService cartService) {
+    public HomeController(UserEntityService userEntityService,
+                          ProductService productService, CartService cartService) {
+        this.userEntityService = userEntityService;
         this.productService = productService;
         this.cartService = cartService;
     }
 
     @GetMapping("/")
     public String index() {
+
+        this.userEntityService.userLoggedOut();
+
         return "home/index";
     }
 

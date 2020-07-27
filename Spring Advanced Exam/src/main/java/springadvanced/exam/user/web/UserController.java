@@ -81,6 +81,7 @@ public class UserController {
 
     @GetMapping("/login")
     public String login() {
+
         return "user/login";
     }
 
@@ -157,6 +158,7 @@ public class UserController {
 
 
         this.userEntityService.updateUser(userEntityUpdateBinding);
+        this.userEntityService.userLoggedOut();
         session.invalidate();
 
         return "redirect:/users/login?updated=new_credentials";
