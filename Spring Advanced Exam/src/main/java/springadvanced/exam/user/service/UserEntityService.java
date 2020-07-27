@@ -134,4 +134,15 @@ public class UserEntityService {
         this.userEntityRepository.save(user);
 
     }
+
+    public void refreshPersonalDiscount() {
+        this.userEntityRepository.findAll().stream()
+                .map(user -> {
+                    int totalPurchases = user.getTotalPurchases();
+                    if (totalPurchases % 20 == 0) {
+                        user.setPersonalDiscount(user.getPersonalDiscount() + 1.0);
+                    }
+                    return user;
+                }).forEach(this.userEntityRepository::save);
+    }
 }
