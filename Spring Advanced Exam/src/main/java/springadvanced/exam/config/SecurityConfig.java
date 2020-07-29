@@ -33,9 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 antMatchers("/", "/users/login", "/users/register").permitAll().
                 antMatchers("/home").
                 authenticated().
-                antMatchers("/root-admin**").hasRole("ROOT_ADMIN").
-                antMatchers("/admin**").hasRole("ADMIN").
-                antMatchers("/cart**", "/users**").hasRole("USER").
+                antMatchers("/root-admin/**").hasRole("ROOT_ADMIN").
+                antMatchers("/admin/**").hasRole("ADMIN").
+                antMatchers("/cart/**", "/users/**").hasRole("USER").
                 and().
                 formLogin().loginPage("/users/login").loginProcessingUrl("/users/login/authenticate").permitAll().
                 defaultSuccessUrl("/home").
@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 logoutUrl("/users/logout").
                 logoutSuccessUrl("/").
                 invalidateHttpSession(true).
-                deleteCookies("JSESSIONID");
+                deleteCookies("JSESSIONID").
+                and().exceptionHandling().accessDeniedPage("/unauthorised");
     }
 }

@@ -59,6 +59,6 @@ public class CartController {
 
         this.cartService.buyAllProducts(cartId);
 
-        return "redirect:/home";
+        return "redirect:/thank-you";
     }
 }

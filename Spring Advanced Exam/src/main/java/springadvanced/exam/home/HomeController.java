@@ -40,4 +40,14 @@ public class HomeController {
         return "home/home";
     }
 
+    @GetMapping("/unauthorised")
+    public String unauthorised () {
+        return "error/unauthorised";
+    }
+
+    @GetMapping("/thank-you")
+    public String thankYou() {
+        return "home/thank-you";
+    }
+
 }
