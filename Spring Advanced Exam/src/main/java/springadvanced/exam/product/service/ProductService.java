@@ -135,7 +135,7 @@ public class ProductService {
         this.productRepository.save(product);
     }
 
-    public ProductDto FindByTitle(String title) {
+    public ProductDto findByTitle(String title) {
 
         return this.mapper.map(this.productRepository.findByTitle(title).orElse(null), ProductDto.class);
     }

@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class MessageTests {
+public class MessageServiceTests {
 
     @Mock
     MessageRepository messageRepository;

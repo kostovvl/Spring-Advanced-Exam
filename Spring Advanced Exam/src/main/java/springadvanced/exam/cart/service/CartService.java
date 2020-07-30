@@ -69,7 +69,7 @@ public class CartService {
             ProductCartView productCartView = new ProductCartView();
             productCartView.setTitle(product.getKey());
             productCartView.setQuantity(product.getValue());
-            ProductDto productDto = this.productService.FindByTitle(product.getKey());
+            ProductDto productDto = this.productService.findByTitle(product.getKey());
 
             System.out.println();
 
