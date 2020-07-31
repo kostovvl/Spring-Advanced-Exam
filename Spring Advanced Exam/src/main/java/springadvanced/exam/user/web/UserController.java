@@ -50,6 +50,9 @@ public class UserController {
     public String registerConfirm(@Valid @ModelAttribute("registerUser")
                                               UserEntityRegisterBinding userEntityRegisterBinding, BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
+
+        System.out.println();
+
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("registerUser", userEntityRegisterBinding);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.registerUser", bindingResult);
@@ -98,7 +101,6 @@ public class UserController {
         model.addAttribute("user", userEntityView);
         return "user/details-user";
 
-        //todo add roles and cart to the view
     }
 
     @GetMapping("/update")
