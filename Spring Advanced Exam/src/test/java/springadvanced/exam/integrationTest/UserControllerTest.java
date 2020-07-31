@@ -3,17 +3,13 @@ package springadvanced.exam.integrationTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import springadvanced.exam.cart.domain.Cart;
 import springadvanced.exam.user.domain.userEntity.UserEntity;
-import springadvanced.exam.user.domain.userEntity.UserEntityRegisterBinding;
 import springadvanced.exam.user.domain.userRole.UserRole;
 import springadvanced.exam.user.repository.UserEntityRepository;
 import java.time.LocalDateTime;
@@ -70,7 +66,7 @@ public class UserControllerTest {
                 .andExpect(model().attributeExists("registerUser"));
     }
 
-   
+
 
     @Test
     public void should_Return_Login_Page() throws Exception {
