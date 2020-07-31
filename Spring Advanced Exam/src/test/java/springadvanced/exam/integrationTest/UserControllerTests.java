@@ -12,6 +12,8 @@ import springadvanced.exam.cart.domain.Cart;
 import springadvanced.exam.user.domain.userEntity.UserEntity;
 import springadvanced.exam.user.domain.userRole.UserRole;
 import springadvanced.exam.user.repository.UserEntityRepository;
+
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -40,11 +42,14 @@ public class UserControllerTests {
         UserRole userRoleAdmin = new UserRole("ROLE_ADMIN");
         userRoleAdmin.setUser(userEntity);
 
+        UserRole userRoleRootAdmin = new UserRole("ROLE_ROOT_ADMIN");
+        userRoleAdmin.setUser(userEntity);
+
         userEntity.setUsername("Pesho");
         userEntity.setPassword("123");
         userEntity.setEmail("pesho@pesho.com");
         userEntity.setPersonalDiscount(0.0);
-        userEntity.setRoles(List.of(userRoleUser, userRoleAdmin));
+        userEntity.setRoles(List.of(userRoleUser, userRoleAdmin, userRoleRootAdmin));
         userEntity.setCart(new Cart());
         userEntity.setTotalPurchases(0);
         userEntity.setRegisteredOn(LocalDateTime.now());

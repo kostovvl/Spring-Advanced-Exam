@@ -144,7 +144,7 @@ public class AdminController {
     @GetMapping("/products/add")
     public String addProduct(Model model) {
 
-        //TODO try to make the input form go wide, so it all fits on one screen and the will be no need to scroll
+        //TODO try to make the input form go wide, so it all fits on one screen and there will be no need to scroll
 
 
 
