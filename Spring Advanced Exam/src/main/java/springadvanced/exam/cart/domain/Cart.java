@@ -28,7 +28,7 @@ public class Cart extends BaseEntity {
         this.user = user;
     }
 
-    @ElementCollection()
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_cart_products")
     public Map<String, Integer> getProducts() {
         return products;
