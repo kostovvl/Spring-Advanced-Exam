@@ -8,6 +8,7 @@ import springadvanced.exam.user.domain.userEntity.UserEntity;
 import springadvanced.exam.user.domain.userRole.UserRole;
 import springadvanced.exam.user.repository.UserEntityRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class InitializeDefaultAdmins implements CommandLineRunner {
             admin.setEmail("Admin" + i + "@Admin.com");
             admin.setTotalPurchases(0);
             admin.setPersonalDiscount(0.0);
+            admin.setRegisteredOn(LocalDateTime.now());
 
             Cart cart = new Cart();
             cart.setUser(admin);

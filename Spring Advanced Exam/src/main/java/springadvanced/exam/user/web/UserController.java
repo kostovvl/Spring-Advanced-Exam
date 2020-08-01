@@ -30,7 +30,7 @@ public class UserController {
     private final ModelMapper mapper;
 
     public UserController(UserEntityService userEntityService,
-                           PasswordEncoder passwordEncoder, ModelMapper mapper) {
+                          PasswordEncoder passwordEncoder, ModelMapper mapper) {
         this.userEntityService = userEntityService;
         this.passwordEncoder = passwordEncoder;
         this.mapper = mapper;
@@ -48,7 +48,7 @@ public class UserController {
 
     @PostMapping("/register")
     public String registerConfirm(@Valid @ModelAttribute("registerUser")
-                                              UserEntityRegisterBinding userEntityRegisterBinding, BindingResult bindingResult,
+                                          UserEntityRegisterBinding userEntityRegisterBinding, BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
 
         System.out.println();
@@ -77,7 +77,9 @@ public class UserController {
             return "redirect:/users/register";
         }
 
+
         this.userEntityService.registerUser(this.mapper.map(userEntityRegisterBinding, UserEntityDto.class));
+
 
         return "redirect:/users/login";
     }
@@ -111,9 +113,9 @@ public class UserController {
 
         if (model.getAttribute("updateUser") == null) {
 
-        UserEntityUpdateBinding userEntityUpdateBinding = this.mapper.map(
-                this.userEntityService.findByUsername(principal.getName()), UserEntityUpdateBinding.class);
-        model.addAttribute("updateUser", userEntityUpdateBinding);
+            UserEntityUpdateBinding userEntityUpdateBinding = this.mapper.map(
+                    this.userEntityService.findByUsername(principal.getName()), UserEntityUpdateBinding.class);
+            model.addAttribute("updateUser", userEntityUpdateBinding);
         }
 
         return "user/update-user";
@@ -121,7 +123,7 @@ public class UserController {
 
     @PostMapping("/update")
     public String updateConfirm(@Valid @ModelAttribute("updateUser")
-                                UserEntityUpdateBinding userEntityUpdateBinding, BindingResult bindingResult,
+                                        UserEntityUpdateBinding userEntityUpdateBinding, BindingResult bindingResult,
                                 RedirectAttributes redirectAttributes, Principal principal, HttpSession session) {
 
 
@@ -142,7 +144,6 @@ public class UserController {
             redirectAttributes.addFlashAttribute("emailExists", true);
             return "redirect:/users/update";
         }
-
 
 
         if (!this.passwordEncoder.matches(userEntityUpdateBinding.getOldPassword(),

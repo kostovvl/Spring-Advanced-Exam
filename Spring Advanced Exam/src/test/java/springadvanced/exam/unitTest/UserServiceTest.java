@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import springadvanced.exam.cart.domain.Cart;
@@ -34,10 +36,12 @@ public class UserServiceTest {
     @Mock
     PasswordEncoder passwordEncoder;
 
+    private ModelMapper modelMapper = new ModelMapper();
+
     @BeforeEach
     public void init() {
         userEntityService = new UserEntityService(userEntityRepository, userRoleRepository,
-                new ModelMapper(), passwordEncoder);
+                modelMapper, passwordEncoder);
          this.userEntity = new UserEntity();
         userEntity.setId("1");
         userEntity.setUsername("Pesho");
@@ -63,7 +67,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void should_Return_True_If_User_With_Such_Emial_Exists() {
+    public void should_Return_True_If_User_With_Such_Email_Exists() {
         //arrange
         when(userEntityRepository.findByEmail("pesho@pesho.com")).thenReturn(Optional.of(userEntity));
 
