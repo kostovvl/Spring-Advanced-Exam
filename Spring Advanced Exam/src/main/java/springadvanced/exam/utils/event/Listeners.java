@@ -18,7 +18,7 @@ public class Listeners {
     }
 
     @EventListener(UserRegistered.class)
-    public void createMessageToAdmin(UserRegistered userRegistered) {
+    public void createMessageForUserRegistered(UserRegistered userRegistered) {
         UserEntityDto userEntityDto = userRegistered.getUserEntityDto();
         MessageBinding messageBinding = new MessageBinding();
         messageBinding.setSenderName("System");
@@ -26,6 +26,19 @@ public class Listeners {
         messageBinding.setSubject("New User Registered");
         messageBinding.setMessageBody(String.format("User with username %s and email %s" +
                 " registered in the system at %s", userEntityDto.getUsername(), userEntityDto.getEmail(),
+                LocalDateTime.now()));
+
+        this.messageService.addMessage(messageBinding);
+    }
+
+    @EventListener(UserDeleted.class)
+    public void createMessageForUserDeleted(UserDeleted userDeleted) {
+        MessageBinding messageBinding = new MessageBinding();
+        messageBinding.setSenderName("System");
+        messageBinding.setSenderEmail("system@system.com");
+        messageBinding.setSubject("User Deleted");
+        messageBinding.setMessageBody(String.format("User with username %s" +
+                        " deleted in the system at %s", userDeleted.getMessage(),
                 LocalDateTime.now()));
 
         this.messageService.addMessage(messageBinding);

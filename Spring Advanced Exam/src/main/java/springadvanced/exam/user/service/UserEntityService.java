@@ -89,8 +89,11 @@ public class UserEntityService {
 
     public void deleteUser(String id) {
 
+        String username = this.userEntityRepository.findById(id).orElse(null).getUsername();
+
         this.userEntityRepository.deleteById(id);
 
+        this.eventPublisher.userDeleted(username);
     }
 
     public List<UserEntityDto> getAllUsers() {

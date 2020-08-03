@@ -30,7 +30,7 @@ public class Message extends BaseEntity {
         this.senderName = senderName;
     }
 
-    @Column(name = "sender_emial", nullable = false, unique = true)
+    @Column(name = "sender_emial", nullable = false, unique = false)
     public String getSenderEmail() {
         return senderEmail;
     }

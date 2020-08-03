@@ -17,4 +17,10 @@ public class EventPublisher {
         UserRegistered userRegistered = new UserRegistered(this, userEntityDto);
         applicationEventPublisher.publishEvent(userRegistered);
     }
+
+    public void userDeleted(String message) {
+        UserDeleted userDeleted = new UserDeleted(this, message);
+        applicationEventPublisher.publishEvent(userDeleted);
+    }
+
 }
