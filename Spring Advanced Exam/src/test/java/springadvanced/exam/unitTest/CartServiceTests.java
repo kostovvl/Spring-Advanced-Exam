@@ -23,6 +23,7 @@ import springadvanced.exam.user.domain.userRole.UserRole;
 import springadvanced.exam.user.repository.UserEntityRepository;
 import springadvanced.exam.user.repository.UserRoleRepository;
 import springadvanced.exam.user.service.UserEntityService;
+import springadvanced.exam.utils.event.EventPublisher;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -40,6 +41,7 @@ public class CartServiceTests {
     private UserEntityService userEntityService;
     private CartService cartService;
     private CategoryService categoryService;
+    private EventPublisher eventPublisher;
 
     private Category category;
     private Product product;
@@ -64,7 +66,7 @@ public class CartServiceTests {
     public void setUp() {
         //initializeServices
         this.userEntityService = new UserEntityService(userEntityRepository, userRoleRepository,
-                new ModelMapper(), passwordEncoder);
+                new ModelMapper(), passwordEncoder, eventPublisher);
         this.categoryService = new CategoryService(categoryRepository, new ModelMapper());
         this.productService = new ProductService(productRepository, this.categoryService,
                 this.userEntityService, new ModelMapper());

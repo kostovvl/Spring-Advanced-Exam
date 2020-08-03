@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,6 +19,7 @@ import springadvanced.exam.user.domain.userEntity.UserEntity;
 import springadvanced.exam.user.repository.UserEntityRepository;
 import springadvanced.exam.user.repository.UserRoleRepository;
 import springadvanced.exam.user.service.UserEntityService;
+import springadvanced.exam.utils.event.EventPublisher;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -51,12 +51,13 @@ public class ProductServiceTests {
 
     private Product product;
     private UserEntity userEntity;
+    private EventPublisher eventPublisher;
 
     @BeforeEach
     public void setUp() {
 
         userEntityService = new UserEntityService(userEntityRepository, userRoleRepository,
-                new ModelMapper(), passwordEncoder);
+                new ModelMapper(), passwordEncoder, eventPublisher);
 
         productService = new ProductService(productRepository, categoryService,
                 userEntityService, new ModelMapper());

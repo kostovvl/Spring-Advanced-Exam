@@ -1,10 +1,6 @@
 package springadvanced.exam.user.service;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import springadvanced.exam.cart.domain.Cart;
@@ -14,11 +10,10 @@ import springadvanced.exam.user.domain.userEntity.UserEntityUpdateBinding;
 import springadvanced.exam.user.domain.userRole.UserRole;
 import springadvanced.exam.user.repository.UserEntityRepository;
 import springadvanced.exam.user.repository.UserRoleRepository;
+import springadvanced.exam.utils.event.EventPublisher;
 
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,13 +24,16 @@ public class UserEntityService {
     private final UserRoleRepository userRoleRepository;
     private final ModelMapper mapper;
     private final PasswordEncoder passwordEncoder;
+    private final EventPublisher eventPublisher;
 
     public UserEntityService(UserEntityRepository userEntityRepository,
-                             UserRoleRepository userRoleRepository, ModelMapper mapper, PasswordEncoder passwordEncoder) {
+                             UserRoleRepository userRoleRepository, ModelMapper mapper,
+                             PasswordEncoder passwordEncoder, EventPublisher eventPublisher) {
         this.userEntityRepository = userEntityRepository;
         this.userRoleRepository = userRoleRepository;
         this.mapper = mapper;
         this.passwordEncoder = passwordEncoder;
+        this.eventPublisher = eventPublisher;
     }
 
     public boolean userExists(String username) {
@@ -61,6 +59,8 @@ public class UserEntityService {
         userEntity.setTotalPurchases(0);
         userEntity.setRegisteredOn(LocalDateTime.now());
         this.userEntityRepository.saveAndFlush(userEntity);
+
+        this.eventPublisher.userRegistered(userEntityDto);
     }
 
 

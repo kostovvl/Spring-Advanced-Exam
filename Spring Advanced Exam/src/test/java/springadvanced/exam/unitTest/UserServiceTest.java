@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import springadvanced.exam.cart.domain.Cart;
@@ -17,6 +15,8 @@ import springadvanced.exam.user.domain.userRole.UserRole;
 import springadvanced.exam.user.repository.UserEntityRepository;
 import springadvanced.exam.user.repository.UserRoleRepository;
 import springadvanced.exam.user.service.UserEntityService;
+import springadvanced.exam.utils.event.EventPublisher;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +28,7 @@ public class UserServiceTest {
 
     private UserEntityService userEntityService;
     private UserEntity userEntity;
+    private EventPublisher eventPublisher;
 
     @Mock
     UserEntityRepository userEntityRepository;
@@ -41,7 +42,7 @@ public class UserServiceTest {
     @BeforeEach
     public void init() {
         userEntityService = new UserEntityService(userEntityRepository, userRoleRepository,
-                modelMapper, passwordEncoder);
+                modelMapper, passwordEncoder, eventPublisher);
          this.userEntity = new UserEntity();
         userEntity.setId("1");
         userEntity.setUsername("Pesho");
