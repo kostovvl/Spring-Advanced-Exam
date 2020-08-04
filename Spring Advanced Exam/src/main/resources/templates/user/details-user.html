@@ -25,7 +25,7 @@
                     <h4>Total Personal Discount:</h4>
                     <h5 th:text="${user.personalDiscount}"></h5>
                     <h6 th:text="|Added on: *{#temporals.format(registeredOn, 'dd-MM-yyyy HH:mm')}|" >Added On</h6>
-                    <div sec:authorize ="hasRole('USER')">
+                    <div  sec:authorize="!hasRole('ROOT_ADMIN')">
                     <a class="btn btn-danger" th:href="@{/users/update}">Update</a>
                     <a class="btn btn-danger" th:href="@{/users/delete(id = *{id})}">Delete</a>
                 </div>
