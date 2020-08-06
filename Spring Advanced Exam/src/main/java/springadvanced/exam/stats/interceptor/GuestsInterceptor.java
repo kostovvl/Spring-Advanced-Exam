@@ -8,18 +8,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Component
-public class VisitorsInterceptor implements HandlerInterceptor {
+public class GuestsInterceptor implements HandlerInterceptor {
 
     private final InterceptionService interceptionService;
 
-    public VisitorsInterceptor(InterceptionService interceptionService) {
+    public GuestsInterceptor(InterceptionService interceptionService) {
         this.interceptionService = interceptionService;
     }
 
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        this.interceptionService.addVisitation();
-        return false;
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
+                             Object handler) throws Exception {
+
+        this.interceptionService.addIndexPageVisit();
+
+        return true;
     }
 }

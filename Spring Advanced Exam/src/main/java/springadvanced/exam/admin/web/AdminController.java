@@ -17,6 +17,7 @@ import springadvanced.exam.product.domain.ProductAddBinding;
 import springadvanced.exam.product.domain.ProductAdminView;
 import springadvanced.exam.product.domain.ProductUpdateBinding;
 import springadvanced.exam.product.service.ProductService;
+import springadvanced.exam.stats.service.InterceptionService;
 import springadvanced.exam.user.domain.userEntity.UserEntityView;
 import springadvanced.exam.user.service.UserEntityService;
 
@@ -34,16 +35,19 @@ public class AdminController {
     private final ProductService productService;
     private final UserEntityService userEntityService;
     private final MessageService messageService;
+    private final InterceptionService interceptionService;
 
     public AdminController(ModelMapper mapper, AdminService adminService,
                            CategoryService categoryService, ProductService productService,
-                           UserEntityService userEntityService, MessageService messageService) {
+                           UserEntityService userEntityService, MessageService messageService,
+                           InterceptionService interceptionService) {
         this.mapper = mapper;
         this.adminService = adminService;
         this.categoryService = categoryService;
         this.productService = productService;
         this.userEntityService = userEntityService;
         this.messageService = messageService;
+        this.interceptionService = interceptionService;
     }
 
     @GetMapping()
@@ -53,6 +57,9 @@ public class AdminController {
         model.addAttribute("products", adminService.getAllProducts());
         model.addAttribute("messages", adminService.getAllMessages());
         model.addAttribute("categories", adminService.getAllCategories());
+        model.addAttribute("stats", this.interceptionService.getAllStats());
+
+        System.out.println();
 
         return "admin/admin-panel";
     }
