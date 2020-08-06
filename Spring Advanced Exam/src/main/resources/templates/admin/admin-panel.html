@@ -9,8 +9,14 @@
     <th:block th:include="fragments/nav"></th:block>
 </header>
 <main>
+
     <div class="container bg-blur rounded mt-5 mb-4">
         <h1>Admin Panel</h1>
+        <h5>Visit Stats:</h5>
+            <th:block th:object="${stats}"
+                      th:class="text-center"
+                      th:text="|Indexpage: ${stats.get('Index')}, Homepage: ${stats.get('Home')}, All: ${stats.get('All')}|">
+            </th:block>
         <div class="row mt-3 mb-3">
             <div class="col-5 bg-dark rounded m-auto" style="height: 30vh; overflow: auto">
                 <a class="ml-3 text-danger mySticky bg-gray rounded" href="/admin/categories/create">Add Category</a>
