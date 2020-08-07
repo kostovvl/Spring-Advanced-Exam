@@ -1,5 +1,6 @@
 package springadvanced.exam.integrationTest;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,8 @@ import springadvanced.exam.user.repository.UserEntityRepository;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -58,6 +61,11 @@ public class UserControllerTests {
 
     }
 
+    @AfterEach
+    public void setDown() {
+        this.userEntityRepository.deleteAll();
+    }
+
 
 
 
@@ -69,6 +77,38 @@ public class UserControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(view().name("user/register"))
                 .andExpect(model().attributeExists("registerUser"));
+    }
+
+    @Test
+    public void should_Create_New_User() throws Exception {
+        //act
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/users/register")
+                .with(csrf())
+                .param("username", "Ignat")
+                .param("email", "Ignat@Ignat.com")
+                .param("password", "123")
+                .param("confirmPassword", "123")
+        ).andExpect(status().is3xxRedirection());
+
+        //assert
+        Assertions.assertEquals(2, this.userEntityRepository.count());
+    }
+
+    @Test
+    public void should_Not_Create_New_User_With_Wrong_Params() throws Exception {
+        //act
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/users/register")
+                .with(csrf())
+                .param("username", "Ignat")
+                .param("email", "IgnatIgnat.com")
+                .param("password", "123")
+                .param("confirmPassword", "123")
+        ).andExpect(status().is3xxRedirection());
+
+        //assert
+        Assertions.assertEquals(1, this.userEntityRepository.count());
     }
 
 
@@ -101,6 +141,7 @@ public class UserControllerTests {
                 .andExpect(view().name("user/update-user"))
                 .andExpect(model().attributeExists("updateUser"));
     }
+
 
     @Test
     public void should_Delete_User() throws Exception {

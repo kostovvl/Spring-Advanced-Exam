@@ -108,9 +108,6 @@ public class UserController {
     @GetMapping("/update")
     public String update(Model model, Principal principal) {
 
-        //todo make it secure
-
-
         if (model.getAttribute("updateUser") == null) {
 
             UserEntityUpdateBinding userEntityUpdateBinding = this.mapper.map(

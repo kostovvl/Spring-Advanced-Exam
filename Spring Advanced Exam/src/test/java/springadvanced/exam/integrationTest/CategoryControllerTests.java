@@ -80,6 +80,39 @@ public class CategoryControllerTests {
         Assertions.assertEquals(1, this.categoryRepository.count());
     }
 
+
+
+
+    @Test
+    public void should_Delete_Category() throws Exception {
+        //arrange
+        String id = this.categoryRepository.findByName("Terlici").orElse(null).getId();
+
+        //act
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/admin/categories/delete").param("id", id).
+                        with(user("Pesho").password("123").roles("USER", "ADMIN", "ROOT_ADMIN")))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/admin"));
+
+        //assert
+        Assertions.assertEquals(0, this.categoryRepository.count());
+    }
+
+    @Test
+    public void should_Return_Update_Category_Page() throws Exception {
+        //arrange
+        String id = this.categoryRepository.findByName("Terlici").orElse(null).getId();
+
+        //act
+        mockMvc.perform(MockMvcRequestBuilders
+                .get("/admin/categories/update").param("id", id).
+                        with(user("Pesho").password("123").roles("USER", "ADMIN", "ROOT_ADMIN")))
+                .andExpect(status().isOk())
+                .andExpect(view().name("category/category-update"))
+                .andExpect(model().attributeExists("categoryUpdate"));
+    }
+
     @Test
     public void should_Update_Existing_Category() throws Exception {
         //arrange
@@ -131,36 +164,5 @@ public class CategoryControllerTests {
         Assertions.assertEquals(originalCategory.getDescription(), updatedCategory.getDescription());
     }
 
-
-
-    @Test
-    public void should_Delete_Category() throws Exception {
-        //arrange
-        String id = this.categoryRepository.findByName("Terlici").orElse(null).getId();
-
-        //act
-        mockMvc.perform(MockMvcRequestBuilders
-                .get("/admin/categories/delete").param("id", id).
-                        with(user("Pesho").password("123").roles("USER", "ADMIN", "ROOT_ADMIN")))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/admin"));
-
-        //assert
-        Assertions.assertEquals(0, this.categoryRepository.count());
-    }
-
-    @Test
-    public void should_Return_Update_Category_Page() throws Exception {
-        //arrange
-        String id = this.categoryRepository.findByName("Terlici").orElse(null).getId();
-
-        //act
-        mockMvc.perform(MockMvcRequestBuilders
-                .get("/admin/categories/update").param("id", id).
-                        with(user("Pesho").password("123").roles("USER", "ADMIN", "ROOT_ADMIN")))
-                .andExpect(status().isOk())
-                .andExpect(view().name("category/category-update"))
-                .andExpect(model().attributeExists("categoryUpdate"));
-    }
 
 }
