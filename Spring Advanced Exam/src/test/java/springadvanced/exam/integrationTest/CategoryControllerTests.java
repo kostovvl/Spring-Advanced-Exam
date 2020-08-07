@@ -13,6 +13,7 @@ import springadvanced.exam.category.repository.CategoryRepository;
 
 import java.util.ArrayList;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -48,6 +49,88 @@ public class CategoryControllerTests {
                 .andExpect(model().attributeExists("categoryCreate"));
 
     }
+
+    @Test
+    public void should_Create_New_Category() throws Exception {
+        //act
+        mockMvc.perform(MockMvcRequestBuilders
+        .post("/root-admin/categories/create")
+                .with(user("Pesho").password("123").roles("USER", "ADMIN", "ROOT_ADMIN"))
+                .with(csrf())
+                .param("name", "Shushoni")
+                .param("description", "Description of shushoni")
+        ).andExpect(status().is3xxRedirection());
+
+        //assert
+        Assertions.assertEquals(2, this.categoryRepository.count());
+    }
+
+    @Test
+    public void should_Not_Create_New_Category_Because_Wrong_Params() throws Exception {
+        //act
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/root-admin/categories/create")
+                .with(user("Pesho").password("123").roles("USER", "ADMIN", "ROOT_ADMIN"))
+                .with(csrf())
+                .param("name", "Shushoni")
+                .param("description", "shrt")
+        ).andExpect(status().is3xxRedirection());
+
+        //assert
+        Assertions.assertEquals(1, this.categoryRepository.count());
+    }
+
+    @Test
+    public void should_Update_Existing_Category() throws Exception {
+        //arrange
+        String id = this.categoryRepository.findByName("Terlici").orElse(null).getId();
+
+        String name = "Shushoni";
+        String description = "Description of Shushoni";
+
+        //act
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/root-admin/categories/update")
+                .with(user("Pesho").password("123").roles("USER", "ADMIN", "ROOT_ADMIN"))
+                .with(csrf())
+                .param("id", id)
+                .param("name", name)
+                .param("description", description)
+        ).andExpect(status().is3xxRedirection());
+
+        //assert
+        Category updated = this.categoryRepository.findById(id).orElse(null);
+        Assertions.assertEquals(id, updated.getId());
+        Assertions.assertEquals(name, updated.getName());
+        Assertions.assertEquals(description, updated.getDescription());
+    }
+
+    @Test
+    public void should_Not_Update_Existing_Category_Because_Wrong_Params() throws Exception {
+        //arrange
+        Category originalCategory = this.categoryRepository.findByName("Terlici").orElse(null);
+
+        String name = "Shushoni";
+        String description = "shrt";
+
+        //act
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/root-admin/categories/update")
+                .with(user("Pesho").password("123").roles("USER", "ADMIN", "ROOT_ADMIN"))
+                .with(csrf())
+                .param("id", originalCategory.getId())
+                .param("name", name)
+                .param("description", description)
+        ).andExpect(status().is3xxRedirection());
+
+        //assert
+        Category updatedCategory = this.categoryRepository.findById(originalCategory.getId()).orElse(null);
+
+        Assertions.assertEquals(originalCategory.getId(), updatedCategory.getId());
+        Assertions.assertEquals(originalCategory.getName(), updatedCategory.getName());
+        Assertions.assertEquals(originalCategory.getDescription(), updatedCategory.getDescription());
+    }
+
 
 
     @Test

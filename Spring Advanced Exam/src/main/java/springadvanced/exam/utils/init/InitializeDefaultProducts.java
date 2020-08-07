@@ -38,7 +38,7 @@ public class InitializeDefaultProducts implements CommandLineRunner {
         for (int i = 1; i <= 5 ; i++) {
             Category category = new Category();
             category.setName("TestCategory" + i);
-            category.setDescription("Test Description of category" + 1);
+            category.setDescription("Test Description of category" + i);
             categories.add(category);
         }
 
