@@ -14,6 +14,7 @@ import springadvanced.exam.message.repository.MessageRepository;
 
 import java.time.LocalDateTime;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -53,6 +54,22 @@ public class MessageControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(view().name("message/message-create"))
                 .andExpect(model().attributeExists("newMessage"));
+    }
+
+    @Test
+    public void should_Create_New_Message() throws Exception {
+        //act
+        mockMvc.perform(MockMvcRequestBuilders
+        .post("/messages/create")
+                .with(csrf())
+                .param("subject", "Terlici")
+                .param("senderName", "Lambi")
+                .param("senderEmail", "Lambi@Karalambi.com")
+                .param("messageBody", "The message body of Lambi's message.")
+        ).andExpect(status().is3xxRedirection());
+
+        //assert
+        Assertions.assertEquals(2, this.messageRepository.count());
     }
 
     @Test
