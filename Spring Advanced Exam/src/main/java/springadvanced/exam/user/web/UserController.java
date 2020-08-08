@@ -50,12 +50,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    @PreAuthorize("!isAnonymous()")
     public String registerConfirm(@Valid @ModelAttribute("registerUser")
                                           UserEntityRegisterBinding userEntityRegisterBinding, BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
-
-        System.out.println();
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("registerUser", userEntityRegisterBinding);
@@ -96,7 +93,6 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    @PreAuthorize("isAnonymous()")
     public String loginFail() {
         return "user/login";
     }
