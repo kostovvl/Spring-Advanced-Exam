@@ -1,6 +1,8 @@
 package springadvanced.exam.user.web;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +39,7 @@ public class UserController {
     }
 
     @GetMapping("/register")
+    @PreAuthorize("isAnonymous()")
     public String register(Model model) {
 
         if (model.getAttribute("registerUser") == null) {
@@ -47,6 +50,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
+    @PreAuthorize("!isAnonymous()")
     public String registerConfirm(@Valid @ModelAttribute("registerUser")
                                           UserEntityRegisterBinding userEntityRegisterBinding, BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes) {
@@ -85,12 +89,14 @@ public class UserController {
     }
 
     @GetMapping("/login")
+    @PreAuthorize("isAnonymous()")
     public String login() {
 
         return "user/login";
     }
 
     @PostMapping("/login")
+    @PreAuthorize("isAnonymous()")
     public String loginFail() {
         return "user/login";
     }
