@@ -57,7 +57,7 @@ public class AdminController {
         model.addAttribute("products", adminService.getAllProducts());
         model.addAttribute("messages", adminService.getAllMessages());
         model.addAttribute("categories", adminService.getAllCategories());
-        model.addAttribute("stats", this.interceptionService.getAllStats());
+        model.addAttribute("stats", interceptionService.getAllStats());
 
         System.out.println();
 
