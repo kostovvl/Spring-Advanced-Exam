@@ -59,8 +59,6 @@ public class AdminController {
         model.addAttribute("categories", adminService.getAllCategories());
         model.addAttribute("stats", interceptionService.getAllStats());
 
-        System.out.println();
-
         return "admin/admin-panel";
     }
 

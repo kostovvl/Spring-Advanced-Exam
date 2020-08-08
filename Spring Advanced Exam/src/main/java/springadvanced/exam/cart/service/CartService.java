@@ -71,8 +71,6 @@ public class CartService {
             productCartView.setQuantity(product.getValue());
             ProductDto productDto = this.productService.findByTitle(product.getKey());
 
-            System.out.println();
-
             double totalDiscount = personalDiscount + productDto.getAdminDiscount();
             if (totalDiscount > productDto.getMaxDiscountPercent()) {
                 totalDiscount = productDto.getMaxDiscountPercent();
