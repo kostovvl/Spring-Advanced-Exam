@@ -25,6 +25,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -111,6 +112,50 @@ public class ProductControllerTests {
     }
 
     @Test
+    public void should_Add_New_Product() throws Exception {
+
+        //act
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/admin/products/add").
+                        with(csrf()).
+                        with(user("Pesho").password("123").roles("USER", "ADMIN", "ROOT_ADMIN"))
+                .param("title", "Chorap")
+                .param("description", "Description of Chorap")
+                .param("category", "Test category")
+                .param("pictureUrl", "http://www.google.com/search?")
+                .param("price", "10")
+                .param("maxDiscountPercent", "10")
+                .param("adminDiscountPercent", "5"))
+                .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/admin"));
+
+        //assert
+        Assertions.assertEquals(2, this.productRepository.count());
+    }
+
+    @Test
+    public void should_Not_Add_New_Product_If_Wrong_Parameters() throws Exception {
+
+        //act
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/admin/products/add").
+                        with(csrf()).
+                        with(user("Pesho").password("123").roles("USER", "ADMIN", "ROOT_ADMIN"))
+                .param("title", "Chorap")
+                .param("description", "short")
+                .param("category", "Test category")
+                .param("pictureUrl", "http://www.google.com/search?")
+                .param("price", "10")
+                .param("maxDiscountPercent", "10")
+                .param("adminDiscountPercent", "5"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/admin/products/add"));
+
+        //assert
+        Assertions.assertEquals(1, this.productRepository.count());
+    }
+
+    @Test
     public void should_Return_Product_Admin_Details_Page() throws Exception {
         //arrange
         String productId = this.productRepository.findByTitle("Product").orElse(null).getId();
@@ -132,7 +177,7 @@ public class ProductControllerTests {
         //act
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/users/products/details").param("id", productId).
-                        with(user("Pesho").password("123").roles("USER","ADMIN")))
+                        with(user("Pesho").password("123").roles("USER", "ADMIN")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("product/details-product-user"))
                 .andExpect(model().attributeExists("product"));
